@@ -1,0 +1,35 @@
+/* Google Inter Font */
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: light --default;
+}
+
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+
+  --color-primary: #2563eb;
+  --color-secondary: #10b981;
+  --color-accent: #f59e0b;
+  --text-accent: #7c3aed;
+  --color-base-200: #f9fafb;
+  --color-base-300: #f3f4f6;
+}
+
+/* Dark Theme */
+@plugin "daisyui/theme" {
+  name: "dark";
+
+  --color-primary: #3b82f6;
+  --color-secondary: #22c55e;
+  --color-accent: #fbbf24;
+  --text-accent: #c084fc;
+  --color-base-200: #1e293b;
+  --color-base-300: #0f172a;
+}
+
+* {
+  font-family: "Inter", sans-serif;
+}
