@@ -43,18 +43,23 @@ const Navbar = () => {
       if (result.isConfirmed) {
         logoutUser()
           .then(() => {
+            // First show success alert
             Swal.fire({
               title: "Logout Successfully",
               icon: "success",
               showConfirmButton: false,
               timer: 1500,
             });
-            navigate("/auth/login");
+
+            setTimeout(() => {
+              navigate("/auth/login");
+            }, 1600);
           })
           .catch((error) => {
             Swal.fire({
               icon: "error",
-              title: error.message,
+              title: "Logout Failed!",
+              text: error.message || "Something went wrong.",
             });
           });
       }
