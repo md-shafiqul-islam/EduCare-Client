@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 
 const Login = () => {
   const [showEye, setShowEye] = useState(false);
-  const { loginUser } = useAuth();
+  const { setUser, loginUser, googleSignInUser } = useAuth();
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
@@ -30,6 +30,27 @@ const Login = () => {
       })
       .catch((error) => {
         console.log(error);
+      });
+  };
+
+  const handleGoogleLogin = () => {
+    googleSignInUser()
+      .then((result) => {
+        setUser(result.user);
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Welcome",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        navigate("/");
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: "error",
+          title: error.message,
+        });
       });
   };
 
@@ -109,7 +130,10 @@ const Login = () => {
 
         <div className="divider">OR</div>
 
-        <button className="btn btn-outline border-primary text-primary hover:bg-primary hover:text-white w-full flex items-center justify-center gap-2 transition duration-300">
+        <button
+          onClick={handleGoogleLogin}
+          className="btn btn-outline border-primary text-primary hover:bg-primary hover:text-white w-full flex items-center justify-center gap-2 transition duration-300"
+        >
           <FcGoogle className="text-xl" /> Sign in with Google
         </button>
       </div>

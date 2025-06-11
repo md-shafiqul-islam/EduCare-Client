@@ -1,15 +1,17 @@
 import { Menu, Moon, Sun, X, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import navLogo from "../assets/Logos/education.png";
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import useAuth from "../hooks/useAuth";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [dashboardOpen, setDashboardOpen] = useState(false);
   const [theme, setTheme] = useState("light");
 
-  const { user } = useAuth();
+  const { user, logoutUser } = useAuth();
+  const navigate = useNavigate();
 
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
@@ -28,6 +30,36 @@ const Navbar = () => {
     { name: "Booked-Services", path: "/dashboard/booked-services" },
     { name: "Service-To-Do", path: "/dashboard/service-to-do" },
   ];
+
+  const handleSignOut = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Logout",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        logoutUser()
+          .then(() => {
+            Swal.fire({
+              title: "Logout Successfully",
+              icon: "success",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            navigate("/auth/login");
+          })
+          .catch((error) => {
+            Swal.fire({
+              icon: "error",
+              title: error.message,
+            });
+          });
+      }
+    });
+  };
 
   return (
     <nav className="flex items-center justify-between bg-base-300 px-4 py-3 shadow-md relative">
@@ -135,10 +167,7 @@ const Navbar = () => {
                 />
                 <span className="font-semibold">{user?.displayName}</span>
                 <button
-                  onClick={() => {
-                    alert("Logout clicked!");
-                    // Add real logout logic here
-                  }}
+                  onClick={handleSignOut}
                   className="btn btn-sm btn-outline ml-4"
                 >
                   Logout
@@ -243,7 +272,7 @@ const Navbar = () => {
                   <li>
                     <button
                       onClick={() => {
-                        alert("Logout clicked!");
+                        handleSignOut();
                         setMenuOpen(false);
                       }}
                       className="btn btn-outline w-full"

@@ -7,7 +7,8 @@ import Swal from "sweetalert2";
 
 const Registration = () => {
   const [showEye, setShowEye] = useState(false);
-  const { setUser, createUser, updateUserProfile } = useAuth();
+  const { setUser, createUser, googleSignInUser, updateUserProfile } =
+    useAuth();
   const navigate = useNavigate();
 
   const handleRegister = (e) => {
@@ -43,6 +44,28 @@ const Registration = () => {
       })
       .catch((error) => {
         console.log(error);
+      });
+  };
+
+  const handleGoogleRegister = () => {
+    googleSignInUser()
+      .then((result) => {
+        setUser(result.user);
+        // Fire sweet alert
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Account Created Successfully",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        navigate("/");
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: "error",
+          title: error.message,
+        });
       });
   };
 
@@ -138,7 +161,10 @@ const Registration = () => {
 
         <div className="divider">OR</div>
 
-        <button className="btn btn-outline border-primary text-primary hover:bg-primary hover:text-white w-full flex items-center justify-center gap-2 transition duration-300">
+        <button
+          onClick={handleGoogleRegister}
+          className="btn btn-outline border-primary text-primary hover:bg-primary hover:text-white w-full flex items-center justify-center gap-2 transition duration-300"
+        >
           <FcGoogle className="text-xl" /> Register with Google
         </button>
       </div>
