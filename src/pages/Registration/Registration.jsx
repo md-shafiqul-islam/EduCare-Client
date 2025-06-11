@@ -1,7 +1,7 @@
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 
@@ -10,6 +10,19 @@ const Registration = () => {
   const { setUser, createUser, googleSignInUser, updateUserProfile } =
     useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const passwordRules = [
+    {
+      regex: /(?=.*[A-Z])/,
+      message: "At least one uppercase letter is required.",
+    },
+    {
+      regex: /(?=.*[a-z])/,
+      message: "At least one lowercase letter is required.",
+    },
+    { regex: /.{6,}/, message: "Password must be at least 6 characters." },
+  ];
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -20,6 +33,18 @@ const Registration = () => {
       formData.entries()
     );
 
+    // Validate password with rules
+    for (const rule of passwordRules) {
+      if (!rule.regex.test(password)) {
+        Swal.fire({
+          icon: "error",
+          title: "Weak Password",
+          text: rule.message,
+        });
+        return;
+      }
+    }
+
     createUser(email, password)
       .then((result) => {
         // Update user profile
@@ -29,7 +54,13 @@ const Registration = () => {
             setUser({ ...result.user, displayName: name, photoURL: photo });
           })
           .catch((error) => {
-            console.log(error);
+            Swal.fire({
+              icon: "error",
+              title: "Profile Update Failed",
+              text:
+                error?.message ||
+                "Something went wrong while updating your profile.",
+            });
           });
 
         // Fire sweet alert
@@ -40,10 +71,24 @@ const Registration = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        navigate("/");
+
+        navigate(location?.state || "/");
       })
       .catch((error) => {
-        console.log(error);
+        const errorMsg =
+          error.code === "auth/email-already-in-use"
+            ? "This email is already in use."
+            : error.code === "auth/invalid-email"
+            ? "Please enter a valid email address."
+            : error.code === "auth/weak-password"
+            ? "Password should be at least 6 characters."
+            : "Something went wrong. Please try again.";
+
+        Swal.fire({
+          icon: "error",
+          title: "Registration Failed",
+          text: errorMsg,
+        });
       });
   };
 
@@ -51,7 +96,7 @@ const Registration = () => {
     googleSignInUser()
       .then((result) => {
         setUser(result.user);
-        // Fire sweet alert
+
         Swal.fire({
           position: "top-end",
           icon: "success",
@@ -59,12 +104,34 @@ const Registration = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        navigate("/");
+
+        navigate(location?.state || "/");
       })
       .catch((error) => {
+        let errorMsg;
+
+        switch (error.code) {
+          case "auth/popup-closed-by-user":
+            errorMsg = "Google sign-in popup was closed. Please try again.";
+            break;
+          case "auth/cancelled-popup-request":
+            errorMsg = "Multiple popups blocked. Please try again.";
+            break;
+          case "auth/popup-blocked":
+            errorMsg =
+              "Your browser blocked the popup. Please enable popups and try again.";
+            break;
+          case "auth/network-request-failed":
+            errorMsg = "Network error. Check your connection and try again.";
+            break;
+          default:
+            errorMsg = "Google sign-in failed. Please try again.";
+        }
+
         Swal.fire({
           icon: "error",
-          title: error.message,
+          title: "Google Sign-In Failed",
+          text: errorMsg,
         });
       });
   };

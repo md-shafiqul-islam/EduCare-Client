@@ -1,7 +1,7 @@
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 
@@ -9,6 +9,7 @@ const Login = () => {
   const [showEye, setShowEye] = useState(false);
   const { setUser, loginUser, googleSignInUser } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -18,7 +19,9 @@ const Login = () => {
     const password = form.password.value;
 
     loginUser(email, password)
-      .then(() => {
+      .then((result) => {
+        setUser(result.user);
+
         Swal.fire({
           position: "top-end",
           icon: "success",
@@ -26,10 +29,24 @@ const Login = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        navigate("/");
+
+        navigate(location.state || "/");
       })
       .catch((error) => {
-        console.log(error);
+        const errorMsg =
+          error.code === "auth/user-not-found"
+            ? "No account found with this email."
+            : error.code === "auth/wrong-password"
+            ? "Incorrect password. Please try again."
+            : error.code === "auth/invalid-email"
+            ? "Invalid email format."
+            : "Login failed. Please try again.";
+
+        Swal.fire({
+          icon: "error",
+          title: "Login Failed",
+          text: errorMsg,
+        });
       });
   };
 
@@ -37,6 +54,7 @@ const Login = () => {
     googleSignInUser()
       .then((result) => {
         setUser(result.user);
+
         Swal.fire({
           position: "top-end",
           icon: "success",
@@ -44,12 +62,33 @@ const Login = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        navigate("/");
+        navigate(location?.state || "/");
       })
       .catch((error) => {
+        let errorMsg;
+
+        switch (error.code) {
+          case "auth/popup-closed-by-user":
+            errorMsg = "You closed the Google sign-in popup. Please try again.";
+            break;
+          case "auth/cancelled-popup-request":
+            errorMsg = "Google sign-in was cancelled. Please try again.";
+            break;
+          case "auth/popup-blocked":
+            errorMsg =
+              "Popup was blocked by the browser. Please enable popups.";
+            break;
+          case "auth/network-request-failed":
+            errorMsg = "Network issue. Please check your internet connection.";
+            break;
+          default:
+            errorMsg = "Google login failed. Please try again.";
+        }
+
         Swal.fire({
           icon: "error",
-          title: error.message,
+          title: "Google Sign-In Failed",
+          text: errorMsg,
         });
       });
   };
