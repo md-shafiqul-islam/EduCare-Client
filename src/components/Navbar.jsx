@@ -128,12 +128,12 @@ const Navbar = () => {
               {/* Logout with user info */}
               <div className="flex items-center gap-2 cursor-pointer group relative">
                 <img
-                  src={user?.image}
-                  alt={`${user?.name}'s avatar`}
+                  src={user?.photoURL}
+                  alt={`${user?.displayName}'s avatar`}
                   className="w-8 h-8 rounded-full"
-                  title={user?.name}
+                  title={user?.displayName}
                 />
-                <span className="font-semibold">{user?.name}</span>
+                <span className="font-semibold">{user?.displayName}</span>
                 <button
                   onClick={() => {
                     alert("Logout clicked!");

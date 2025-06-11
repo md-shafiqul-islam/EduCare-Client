@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 
 const Registration = () => {
   const [showEye, setShowEye] = useState(false);
-  const { createUser } = useAuth();
+  const { setUser, createUser, updateUserProfile } = useAuth();
   const navigate = useNavigate();
 
   const handleRegister = (e) => {
@@ -20,7 +20,18 @@ const Registration = () => {
     );
 
     createUser(email, password)
-      .then(() => {
+      .then((result) => {
+        // Update user profile
+        const userProfile = { displayName: name, photoURL: photo };
+        updateUserProfile(userProfile)
+          .then(() => {
+            setUser({ ...result.user, displayName: name, photoURL: photo });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+
+        // Fire sweet alert
         Swal.fire({
           position: "top-end",
           icon: "success",
