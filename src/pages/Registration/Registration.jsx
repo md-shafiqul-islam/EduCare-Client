@@ -1,10 +1,39 @@
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import useAuth from "../../hooks/useAuth";
+import Swal from "sweetalert2";
 
 const Registration = () => {
   const [showEye, setShowEye] = useState(false);
+  const { createUser } = useAuth();
+  const navigate = useNavigate();
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+    const form = e.target;
+
+    const formData = new FormData(form);
+    const { name, email, password, photo } = Object.fromEntries(
+      formData.entries()
+    );
+
+    createUser(email, password)
+      .then(() => {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Account Created Successfully",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-tr from-base-200 via-base-300 to-base-200 dark:from-base-300 dark:to-base-200 py-10 px-4">
@@ -18,7 +47,7 @@ const Registration = () => {
           with learners and educators, and start your journey with EduCare.
         </p>
 
-        <form className="space-y-6">
+        <form onSubmit={handleRegister} className="space-y-6">
           <div>
             <label className="block text-sm font-semibold text-primary mb-2">
               Name

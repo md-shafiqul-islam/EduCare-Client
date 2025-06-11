@@ -2,13 +2,14 @@ import { Menu, Moon, Sun, X, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import navLogo from "../assets/Logos/education.png";
 import { Link, NavLink } from "react-router";
+import useAuth from "../hooks/useAuth";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [dashboardOpen, setDashboardOpen] = useState(false);
   const [theme, setTheme] = useState("light");
 
-  const user = true;
+  const { user } = useAuth();
 
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
