@@ -4,7 +4,7 @@ import { Link } from "react-router";
 const ServiceCard = ({ service }) => {
   return (
     <motion.div
-      className="bg-base-100 p-6 rounded-lg shadow-md border border-base-300 space-y-8"
+      className="bg-base-100 p-6 rounded-2xl shadow-md border border-base-300 space-y-6"
       whileHover={{ scale: 1.02 }}
       transition={{ type: "spring", stiffness: 100 }}
     >
@@ -14,7 +14,7 @@ const ServiceCard = ({ service }) => {
         <img
           src={service.image}
           alt={service.name}
-          className="w-full md:w-64 h-48 object-cover rounded-lg"
+          className="w-full md:w-64 h-48 object-cover rounded-xl"
         />
 
         {/* Text Info */}
@@ -34,21 +34,23 @@ const ServiceCard = ({ service }) => {
               alt={service.serviceProviderName}
               className="w-10 h-10 rounded-full border"
             />
-            <span className="font-medium">{service.serviceProviderName}</span>
+            <span className="font-medium text-base-content">
+              {service.serviceProviderName}
+            </span>
           </div>
 
-          <p className="text-sm text-base-content">
+          <p className="text-sm space-y-1">
             <span className="font-semibold">Area:</span>{" "}
             {service.areas.map((area, index) => (
               <span
                 key={index}
-                className="inline-block bg-green-100 text-green-700 text-sm px-2 py-1 rounded mr-2"
+                className="inline-block bg-secondary/10 text-secondary px-2 py-1 rounded mr-1"
               >
                 {area}
               </span>
             ))}
           </p>
-          <p className="text-sm text-base-content">
+          <p>
             <span className="font-semibold">Price:</span> ৳ {service.price}
           </p>
 
