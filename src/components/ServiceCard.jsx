@@ -14,7 +14,7 @@ const ServiceCard = ({ service }) => {
         <img
           src={service.image}
           alt={service.name}
-          className="w-full md:w-64 h-48 object-cover rounded-xl"
+          className="w-full md:w-64 object-cover rounded-xl"
         />
 
         {/* Text Info */}
