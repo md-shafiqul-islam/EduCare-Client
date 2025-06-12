@@ -17,6 +17,8 @@ const AddService = () => {
     const formData = new FormData(form);
     const service = Object.fromEntries(formData.entries());
 
+    service.areas = service.areas.split(",").map((area) => area.trim());
+
     const newService = {
       ...service,
       serviceProviderImage: user?.photoURL,
@@ -125,7 +127,7 @@ const AddService = () => {
             </label>
             <input
               type="text"
-              name="area"
+              name="areas"
               placeholder="E.g. Dhaka, Chittagong"
               className="input input-bordered"
               required

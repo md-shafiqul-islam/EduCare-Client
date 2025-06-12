@@ -21,7 +21,7 @@ const Navbar = () => {
 
   const commonNavItems = [
     { name: "Home", path: "/" },
-    { name: "Services", path: "/services" },
+    { name: "Services", path: "/all-services" },
   ];
 
   const dashboardItems = [
