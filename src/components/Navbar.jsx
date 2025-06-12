@@ -148,8 +148,10 @@ const Navbar = () => {
                         to={item.path}
                         onClick={() => setDashboardOpen(false)}
                         className={({ isActive }) =>
-                          `block px-4 py-2 hover:bg-base-200 ${
-                            isActive ? "bg-primary text-white" : ""
+                          `block px-4 py-2 transition-colors duration-200 rounded-md ${
+                            isActive
+                              ? "bg-primary text-white"
+                              : "hover:bg-base-200 hover:text-primary"
                           }`
                         }
                       >

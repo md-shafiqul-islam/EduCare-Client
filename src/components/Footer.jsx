@@ -3,7 +3,7 @@ import footerLogo from "../assets/Logos/education.png";
 
 const Footer = () => {
   return (
-    <footer className="bg-base-200 text-base-content text-center px-4 py-10">
+    <footer className="bg-gray-900 text-gray-100 text-center px-4 py-10">
       <div className="max-w-4xl mx-auto space-y-5">
         {/* Logo + Name */}
         <div className="flex flex-col items-center space-y-2">
@@ -51,7 +51,7 @@ const Footer = () => {
         </div>
 
         {/* Copyright */}
-        <div className="text-sm font-semibold text-base-content mt-4">
+        <div className="text-sm font-semibold mt-4">
           &copy; {new Date().getFullYear()} EduCare — All Rights Reserved.
         </div>
       </div>
