@@ -12,6 +12,7 @@ import axios from "axios";
 import Spinner from "../components/Spinner";
 import ServiceDetails from "../pages/ServiceDetails/ServiceDetails";
 import BookService from "../pages/BookService/BookService";
+import BookedService from "../pages/BookedService/BookedService";
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AddService></AddService>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/booked-services",
+        element: (
+          <PrivateRoute>
+            <BookedService />
           </PrivateRoute>
         ),
       },
