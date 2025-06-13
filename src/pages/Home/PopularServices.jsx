@@ -71,7 +71,7 @@ const PopularServices = () => {
 
                 <div className="mt-4 text-right">
                   <Link
-                    to={`/services/${service._id}`}
+                    to={`/service/${service._id}`}
                     className="text-sm text-secondary font-semibold hover:underline"
                   >
                     View Details →

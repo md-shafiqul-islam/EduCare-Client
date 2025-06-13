@@ -10,6 +10,8 @@ import PrivateRoute from "./PrivateRoute";
 import AddService from "../pages/AddService/AddService";
 import axios from "axios";
 import Spinner from "../components/Spinner";
+import ServiceDetails from "../pages/ServiceDetails/ServiceDetails";
+import BookService from "../pages/BookService/BookService";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +27,26 @@ const router = createBrowserRouter([
         path: "/all-services",
         loader: () => axios("http://localhost:3000/all-services"),
         Component: AllServices,
+      },
+      {
+        path: "/service/:id",
+        loader: ({ params }) =>
+          axios(`http://localhost:3000/service/${params.id}`),
+        element: (
+          <PrivateRoute>
+            <ServiceDetails></ServiceDetails>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/book-service/:id",
+        loader: ({ params }) =>
+          axios(`http://localhost:3000/service/${params.id}`),
+        element: (
+          <PrivateRoute>
+            <BookService />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/add-service",
