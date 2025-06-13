@@ -1,13 +1,62 @@
-import { useLoaderData } from "react-router";
+import { useLoaderData, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import { useState } from "react";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const BookService = () => {
   const { data: specificService } = useLoaderData();
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   const [date, setDate] = useState("");
   const [instructions, setInstructions] = useState("");
+
+  const handleBooking = (e) => {
+    e.preventDefault();
+
+    const bookingService = {
+      serviceId: specificService._id,
+      serviceName: specificService.name,
+      serviceImage: specificService.image,
+      providerEmail: specificService.serviceProviderEmail,
+      providerName: specificService.serviceProviderName,
+      currentUserEmail: user?.email,
+      currentUserName: user?.displayName,
+      serviceTakingDate: date,
+      specialInstructions: instructions,
+      servicePrice: specificService.price,
+      serviceStatus: "pending",
+    };
+
+    axios
+      .post("http://localhost:3000/booking-service", bookingService)
+      .then((data) => {
+        if (data?.data.acknowledged) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Service Booked Successfully",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+
+          setTimeout(() => {
+            navigate("/all-services");
+          }, 1600);
+        }
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: "error",
+          title: "Booking Service Failed",
+          text:
+            error?.response?.data?.message ||
+            error.message ||
+            "Something went wrong!",
+        });
+      });
+  };
 
   return (
     <div className="max-w-2xl mx-auto bg-base-200 p-8 rounded-2xl shadow-md my-10 space-y-6 border border-base-300">
@@ -18,7 +67,7 @@ const BookService = () => {
         Fill out the form to complete your booking.
       </p>
 
-      <form className="space-y-4">
+      <form onSubmit={handleBooking} className="space-y-4">
         {/* Service ID */}
         <div>
           <label className="label font-medium">Service ID</label>
