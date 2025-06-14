@@ -1,4 +1,4 @@
-import { useLoaderData, useNavigate } from "react-router";
+import { Navigate, useLocation, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -9,7 +9,9 @@ const BookService = () => {
     document.title = "Book Service | EduCare";
   }, []);
 
-  const { data: specificService } = useLoaderData();
+  const location = useLocation();
+  const specificService = location.state?.service;
+
   const { user } = useAuth();
   const navigate = useNavigate();
 
@@ -61,6 +63,18 @@ const BookService = () => {
         });
       });
   };
+
+  if (!specificService) {
+    Swal.fire({
+      icon: "warning",
+      title: "No Service Found",
+      text: "Redirecting to service list...",
+      timer: 1500,
+      showConfirmButton: false,
+    });
+
+    return <Navigate to="/all-services" replace />;
+  }
 
   return (
     <div className="max-w-2xl mx-auto bg-base-200 p-8 rounded-2xl shadow-md my-10 space-y-6 border border-base-300">

@@ -73,7 +73,7 @@ const ServiceDetails = () => {
         <p className="text-lg font-semibold text-secondary">
           Price: ৳ {specificService.price}
         </p>
-        <Link to={`/book-service/${specificService._id}`}>
+        <Link to="/book-service" state={{ service: specificService }}>
           <button className="btn btn-primary">Book Now</button>
         </Link>
       </section>

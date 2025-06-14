@@ -42,9 +42,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/book-service/:id",
-        loader: ({ params }) =>
-          axios(`http://localhost:3000/service/${params.id}`),
+        path: "/book-service",
         element: (
           <PrivateRoute>
             <BookService />
