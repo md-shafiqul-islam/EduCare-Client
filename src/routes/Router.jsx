@@ -13,6 +13,7 @@ import Spinner from "../components/Spinner";
 import ServiceDetails from "../pages/ServiceDetails/ServiceDetails";
 import BookService from "../pages/BookService/BookService";
 import BookedService from "../pages/BookedService/BookedService";
+import ManageService from "../pages/ManageService/ManageService";
 
 const router = createBrowserRouter([
   {
@@ -35,7 +36,7 @@ const router = createBrowserRouter([
           axios(`http://localhost:3000/service/${params.id}`),
         element: (
           <PrivateRoute>
-            <ServiceDetails></ServiceDetails>
+            <ServiceDetails />
           </PrivateRoute>
         ),
       },
@@ -53,7 +54,15 @@ const router = createBrowserRouter([
         path: "/dashboard/add-service",
         element: (
           <PrivateRoute>
-            <AddService></AddService>
+            <AddService />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/manage-service",
+        element: (
+          <PrivateRoute>
+            <ManageService />
           </PrivateRoute>
         ),
       },
