@@ -51,7 +51,7 @@ const ManageService = () => {
             updatedService
           )
           .then((data) => {
-            if (data?.data.modifiedCount > 0) {
+            if (data?.data?.modifiedCount > 0) {
               Swal.fire({
                 title: "Updated!",
                 text: "Service has been updated.",
@@ -82,6 +82,49 @@ const ManageService = () => {
                 error?.response?.data?.message ||
                 error.message ||
                 "Something went wrong while updating the service.",
+            });
+          });
+      }
+    });
+  };
+
+  const handleDeleteService = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`http://localhost:3000/delete-service/${id}`)
+          .then((data) => {
+            if (data?.data?.deletedCount > 0) {
+              Swal.fire({
+                title: "Deleted!",
+                text: "Service deleted successfully.",
+                icon: "success",
+                timer: 1500,
+                showConfirmButton: false,
+              });
+
+              // Update UI immediately
+              setMyServices(
+                myServices.filter((myService) => myService._id !== id)
+              );
+            }
+          })
+          .catch((error) => {
+            Swal.fire({
+              icon: "error",
+              title: "Delete Failed!",
+              text:
+                error?.response?.data?.message ||
+                error.message ||
+                "Something went wrong while deleting the service.",
             });
           });
       }
@@ -158,7 +201,12 @@ const ManageService = () => {
                     Edit
                   </button>
 
-                  <button className="btn btn-sm btn-error">Delete</button>
+                  <button
+                    onClick={() => handleDeleteService(service._id)}
+                    className="btn btn-sm btn-error"
+                  >
+                    Delete
+                  </button>
                 </div>
               </div>
             </div>
