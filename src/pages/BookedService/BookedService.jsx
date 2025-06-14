@@ -4,6 +4,10 @@ import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 
 const BookedService = () => {
+  useEffect(() => {
+    document.title = "Booked Service | EduCare";
+  }, []);
+
   const { user } = useAuth();
   const [bookedService, setBookedService] = useState([]);
 

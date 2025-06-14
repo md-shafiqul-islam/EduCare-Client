@@ -1,7 +1,12 @@
 import { AlertTriangle } from "lucide-react";
+import { useEffect } from "react";
 import { Link } from "react-router";
 
 const NotFound = () => {
+  useEffect(() => {
+    document.title = "Not Found | EduCare";
+  }, []);
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen px-4 text-center">
       <AlertTriangle className="text-error mb-4" size={48} />

@@ -1,7 +1,12 @@
 import { useLoaderData } from "react-router";
 import ServiceCard from "../../components/ServiceCard";
+import { useEffect } from "react";
 
 const AllServices = () => {
+  useEffect(() => {
+    document.title = "All Services | EduCare";
+  }, []);
+
   const { data: allServices } = useLoaderData();
 
   return (

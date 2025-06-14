@@ -1,6 +1,11 @@
+import { useEffect } from "react";
 import { Link, useLoaderData } from "react-router";
 
 const ServiceDetails = () => {
+  useEffect(() => {
+    document.title = "Service Details | EduCare";
+  }, []);
+
   const { data: specificService } = useLoaderData();
 
   return (

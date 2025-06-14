@@ -4,6 +4,10 @@ import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 
 const ManageService = () => {
+  useEffect(() => {
+    document.title = "Manage Service | EduCare";
+  }, []);
+
   const { user } = useAuth();
   const [myServices, setMyServices] = useState([]);
   const [selectedService, setSelectedService] = useState(null);

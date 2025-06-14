@@ -3,6 +3,7 @@ import Banner from "./Banner";
 import PopularServices from "./PopularServices";
 import Testimonials from "./Testimonials";
 import HowItWorks from "./HowItWorks";
+import { useEffect } from "react";
 
 const sectionVariants = {
   hidden: { opacity: 0, y: 30 },
@@ -18,6 +19,10 @@ const sectionVariants = {
 };
 
 const Home = () => {
+  useEffect(() => {
+    document.title = "Home | EduCare";
+  }, []);
+
   return (
     <div className="space-y-16">
       <motion.section

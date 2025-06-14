@@ -1,11 +1,15 @@
 import { Eye, EyeOff } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useLocation, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 
 const Registration = () => {
+  useEffect(() => {
+    document.title = "Registration | EduCare";
+  }, []);
+
   const [showEye, setShowEye] = useState(false);
   const { setUser, createUser, googleSignInUser, updateUserProfile } =
     useAuth();

@@ -2,9 +2,13 @@ import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const AddService = () => {
+  useEffect(() => {
+    document.title = "Add Service | EduCare";
+  }, []);
+
   const { user } = useAuth();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);

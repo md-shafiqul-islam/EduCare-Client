@@ -1,10 +1,14 @@
 import { useLoaderData, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 
 const BookService = () => {
+  useEffect(() => {
+    document.title = "Book Service | EduCare";
+  }, []);
+
   const { data: specificService } = useLoaderData();
   const { user } = useAuth();
   const navigate = useNavigate();
