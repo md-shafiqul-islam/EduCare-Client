@@ -28,7 +28,6 @@ const router = createBrowserRouter([
       },
       {
         path: "/all-services",
-        loader: () => axios("http://localhost:3000/all-services"),
         Component: AllServices,
       },
       {
