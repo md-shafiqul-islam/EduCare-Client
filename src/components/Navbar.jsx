@@ -1,5 +1,5 @@
 import { Menu, Moon, Sun, X, ChevronDown } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import navLogo from "../assets/Logos/education.png";
 import { Link, NavLink, useNavigate } from "react-router";
 import useAuth from "../hooks/useAuth";
@@ -13,9 +13,17 @@ const Navbar = () => {
   const { user, logoutUser } = useAuth();
   const navigate = useNavigate();
 
+  // Load theme from localStorage on mount
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme") || "light";
+    setTheme(savedTheme);
+    document.documentElement.setAttribute("data-theme", savedTheme);
+  }, []);
+
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
     setTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
     document.documentElement.setAttribute("data-theme", newTheme);
   };
 
