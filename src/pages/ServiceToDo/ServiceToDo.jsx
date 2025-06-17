@@ -1,7 +1,7 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const ServiceToDo = () => {
   useEffect(() => {
@@ -9,10 +9,11 @@ const ServiceToDo = () => {
   }, []);
 
   const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
   const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
-    axios(`https://server-nine-tau-39.vercel.app/bookings/${user?.email}`)
+    axiosSecure(`/bookings/${user?.email}`)
       .then((data) => {
         setBookings(data?.data || []);
       })
@@ -26,11 +27,11 @@ const ServiceToDo = () => {
             "Something went wrong while fetching your booked services!",
         });
       });
-  }, [user?.email]);
+  }, [user?.email, axiosSecure]);
 
   const handleStatusChange = (id, updatedStatus) => {
-    axios
-      .patch(`https://server-nine-tau-39.vercel.app/service-to-do/${id}`, {
+    axiosSecure
+      .patch(`/service-to-do/${id}`, {
         serviceStatus: updatedStatus,
       })
       .then((data) => {

@@ -1,7 +1,7 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const BookedService = () => {
   useEffect(() => {
@@ -9,14 +9,13 @@ const BookedService = () => {
   }, []);
 
   const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
   const [bookedService, setBookedService] = useState([]);
 
   useEffect(() => {
     if (!user?.email) return;
 
-    axios(
-      `https://server-nine-tau-39.vercel.app/booked-services/${user?.email}`
-    )
+    axiosSecure(`/booked-services/${user?.email}`)
       .then((data) => {
         setBookedService(data?.data || []);
       })

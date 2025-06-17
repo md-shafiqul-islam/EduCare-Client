@@ -3,6 +3,7 @@ import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const AddService = () => {
   useEffect(() => {
@@ -10,6 +11,7 @@ const AddService = () => {
   }, []);
 
   const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
@@ -30,8 +32,8 @@ const AddService = () => {
       serviceProviderEmail: user?.email,
     };
 
-    axios
-      .post("https://server-nine-tau-39.vercel.app/add-service", newService)
+    axiosSecure
+      .post("/add-service", newService)
       .then((data) => {
         if (data?.data.acknowledged) {
           Swal.fire({

@@ -1,8 +1,8 @@
 import { Navigate, useLocation, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const BookService = () => {
   useEffect(() => {
@@ -13,6 +13,7 @@ const BookService = () => {
   const specificService = location.state?.service;
 
   const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
 
   const [date, setDate] = useState("");
@@ -35,11 +36,8 @@ const BookService = () => {
       serviceStatus: "pending",
     };
 
-    axios
-      .post(
-        "https://server-nine-tau-39.vercel.app/booking-service",
-        bookingService
-      )
+    axiosSecure
+      .post("/booking-service", bookingService)
       .then((data) => {
         if (data?.data.acknowledged) {
           Swal.fire({

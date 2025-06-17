@@ -1,7 +1,7 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const ManageService = () => {
   useEffect(() => {
@@ -9,13 +9,16 @@ const ManageService = () => {
   }, []);
 
   const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
+
   const [myServices, setMyServices] = useState([]);
   const [selectedService, setSelectedService] = useState(null);
 
   useEffect(() => {
-    axios(
-      `https://server-nine-tau-39.vercel.app/my-added-services?email=${user?.email}`
-    )
+    if (!user?.email) return;
+
+    axiosSecure
+      .get(`/my-added-services?email=${user?.email}`)
       .then((data) => {
         setMyServices(data?.data || []);
       })
@@ -29,7 +32,7 @@ const ManageService = () => {
             "Something went wrong while fetching your booked services!",
         });
       });
-  }, [user?.email]);
+  }, [user?.email, axiosSecure]);
 
   const handleUpdateService = (e) => {
     e.preventDefault();
@@ -51,11 +54,8 @@ const ManageService = () => {
       confirmButtonText: "Yes, update it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios
-          .put(
-            `https://server-nine-tau-39.vercel.app/update-service/${selectedService._id}`,
-            updatedService
-          )
+        axiosSecure
+          .put(`/update-service/${selectedService._id}`, updatedService)
           .then((data) => {
             if (data?.data?.modifiedCount > 0) {
               Swal.fire({
@@ -105,8 +105,8 @@ const ManageService = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios
-          .delete(`https://server-nine-tau-39.vercel.app/delete-service/${id}`)
+        axiosSecure
+          .delete(`/delete-service/${id}`)
           .then((data) => {
             if (data?.data?.deletedCount > 0) {
               Swal.fire({
