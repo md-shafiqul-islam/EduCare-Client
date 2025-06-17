@@ -29,7 +29,7 @@ const BookedService = () => {
             "Something went wrong while fetching your booked services!",
         });
       });
-  }, [user?.email]);
+  }, [user?.email, axiosSecure]);
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">

@@ -142,7 +142,7 @@ const ServiceToDo = () => {
                 onChange={(e) =>
                   handleStatusChange(booking._id, e.target.value)
                 }
-                className="border border-base-300 p-2 rounded-md w-full focus:border-primary focus:ring-primary"
+                className="border border-base-300 p-2 bg-accent rounded-md w-full focus:border-primary focus:ring-primary"
               >
                 <option value="pending">Pending</option>
                 <option value="working">Working</option>
