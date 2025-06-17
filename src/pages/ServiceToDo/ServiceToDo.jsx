@@ -12,7 +12,7 @@ const ServiceToDo = () => {
   const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
-    axios(`http://localhost:3000/bookings/${user?.email}`)
+    axios(`https://server-nine-tau-39.vercel.app/bookings/${user?.email}`)
       .then((data) => {
         setBookings(data?.data || []);
       })
@@ -30,7 +30,7 @@ const ServiceToDo = () => {
 
   const handleStatusChange = (id, updatedStatus) => {
     axios
-      .patch(`http://localhost:3000/service-to-do/${id}`, {
+      .patch(`https://server-nine-tau-39.vercel.app/service-to-do/${id}`, {
         serviceStatus: updatedStatus,
       })
       .then((data) => {

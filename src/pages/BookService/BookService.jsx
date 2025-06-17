@@ -36,7 +36,10 @@ const BookService = () => {
     };
 
     axios
-      .post("http://localhost:3000/booking-service", bookingService)
+      .post(
+        "https://server-nine-tau-39.vercel.app/booking-service",
+        bookingService
+      )
       .then((data) => {
         if (data?.data.acknowledged) {
           Swal.fire({

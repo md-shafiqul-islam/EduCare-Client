@@ -13,7 +13,9 @@ const ManageService = () => {
   const [selectedService, setSelectedService] = useState(null);
 
   useEffect(() => {
-    axios(`http://localhost:3000/my-added-services?email=${user?.email}`)
+    axios(
+      `https://server-nine-tau-39.vercel.app/my-added-services?email=${user?.email}`
+    )
       .then((data) => {
         setMyServices(data?.data || []);
       })
@@ -51,7 +53,7 @@ const ManageService = () => {
       if (result.isConfirmed) {
         axios
           .put(
-            `http://localhost:3000/update-service/${selectedService._id}`,
+            `https://server-nine-tau-39.vercel.app/update-service/${selectedService._id}`,
             updatedService
           )
           .then((data) => {
@@ -104,7 +106,7 @@ const ManageService = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:3000/delete-service/${id}`)
+          .delete(`https://server-nine-tau-39.vercel.app/delete-service/${id}`)
           .then((data) => {
             if (data?.data?.deletedCount > 0) {
               Swal.fire({

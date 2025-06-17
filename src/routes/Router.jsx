@@ -33,7 +33,7 @@ const router = createBrowserRouter([
       {
         path: "/service/:id",
         loader: ({ params }) =>
-          axios(`http://localhost:3000/service/${params.id}`),
+          axios(`https://server-nine-tau-39.vercel.app/service/${params.id}`),
         element: (
           <PrivateRoute>
             <ServiceDetails />

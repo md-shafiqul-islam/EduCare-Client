@@ -31,7 +31,7 @@ const AddService = () => {
     };
 
     axios
-      .post("http://localhost:3000/add-service", newService)
+      .post("https://server-nine-tau-39.vercel.app/add-service", newService)
       .then((data) => {
         if (data?.data.acknowledged) {
           Swal.fire({

@@ -8,7 +8,7 @@ const PopularServices = () => {
   const [popularServices, setPopularServices] = useState([]);
 
   useEffect(() => {
-    axios("http://localhost:3000/all-services")
+    axios("https://server-nine-tau-39.vercel.app/all-services")
       .then((data) => {
         const topSix = data?.data.slice(0, 6);
         setPopularServices(topSix);

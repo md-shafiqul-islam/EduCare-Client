@@ -14,7 +14,9 @@ const BookedService = () => {
   useEffect(() => {
     if (!user?.email) return;
 
-    axios(`http://localhost:3000/booked-services/${user?.email}`)
+    axios(
+      `https://server-nine-tau-39.vercel.app/booked-services/${user?.email}`
+    )
       .then((data) => {
         setBookedService(data?.data || []);
       })

@@ -13,7 +13,9 @@ const AllServices = () => {
   const [services, setServices] = useState([]);
 
   useEffect(() => {
-    axios(`http://localhost:3000/all-services?searchParams=${search}`)
+    axios(
+      `https://server-nine-tau-39.vercel.app/all-services?searchParams=${search}`
+    )
       .then((data) => {
         setServices(data?.data);
       })
