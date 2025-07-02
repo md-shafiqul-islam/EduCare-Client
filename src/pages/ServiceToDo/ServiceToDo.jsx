@@ -78,79 +78,70 @@ const ServiceToDo = () => {
   }
 
   return (
-    <div className="max-w-6xl mx-auto bg-base-200 px-4 py-16 space-y-12">
-      {/* Heading Section */}
-      <div className="text-center mb-10 max-w-3xl mx-auto">
-        <h1 className="text-3xl font-bold text-primary mb-4">
-          Services To Handle
-        </h1>
-        <p className="text-base text-base-content">
-          This page lists all the booked services where you are the provider.
-          You can manage the current status of each service using the dropdown
-          below.
-        </p>
-      </div>
+    <div className="bg-base-200">
+      <div className="max-w-6xl mx-auto px-4 py-16 space-y-12">
+        <div className="text-center mb-10 max-w-3xl mx-auto">
+          <h1 className="text-3xl font-bold text-primary mb-4">
+            Services To Handle
+          </h1>
+          <p className="text-base text-base-content">
+            This page lists all the booked services where you are the provider.
+            You can manage the current status of each service using the dropdown
+            below.
+          </p>
+        </div>
 
-      {/* Cards Section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {bookings.map((booking) => (
-          <div
-            key={booking._id}
-            className="border border-base-300 rounded-xl p-4 shadow-md bg-base-200"
-          >
-            <h2 className="text-xl font-semibold mb-2 text-primary">
-              {booking.serviceName}
-            </h2>
-
-            <img
-              src={booking.serviceImage}
-              alt={booking.serviceName}
-              className="w-full h-48 object-cover rounded-md mb-2"
-            />
-
-            <p className="text-base-content">
-              <span className="font-medium text-secondary">Price:</span>{" "}
-              {booking.servicePrice} ৳
-            </p>
-
-            <p className="text-base-content">
-              <span className="font-medium text-secondary">Service Date:</span>{" "}
-              {booking.serviceTakingDate}
-            </p>
-
-            <p className="text-base-content">
-              <span className="font-medium text-secondary">Client Name:</span>{" "}
-              {booking.currentUserName}
-            </p>
-
-            <p className="text-base-content">
-              <span className="font-medium text-secondary">Client Email:</span>{" "}
-              {booking.currentUserEmail}
-            </p>
-
-            <p className="text-base-content">
-              <span className="font-medium text-secondary">Instructions:</span>{" "}
-              {booking.specialInstructions}
-            </p>
-
-            <div className="mt-3">
-              <label className="block font-medium mb-1 text-secondary">
-                Service Status:
-              </label>
-              <select
-                value={booking.serviceStatus}
-                onChange={(e) =>
-                  handleStatusChange(booking._id, e.target.value)
-                }
-                className="border border-base-300 p-2 bg-accent rounded-md w-full focus:border-primary focus:ring-primary"
-              >
-                <option value="pending">Pending</option>
-                <option value="working">Working</option>
-                <option value="completed">Completed</option>
-              </select>
-            </div>
-          </div>
-        ))}
+        <div className="overflow-x-auto rounded-xl bg-base-100 shadow border border-secondary">
+          <table className="table w-full">
+            <thead>
+              <tr className="text-base text-accent">
+                <th>Image</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Date</th>
+                <th>Client</th>
+                <th>Instructions</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {bookings.map((booking) => (
+                <tr key={booking._id} className="hover:bg-base-200">
+                  <td>
+                    <img
+                      src={booking.serviceImage}
+                      alt={booking.serviceName}
+                      className="w-20 h-16 object-cover rounded"
+                    />
+                  </td>
+                  <td>{booking.serviceName}</td>
+                  <td>৳ {booking.servicePrice}</td>
+                  <td>{booking.serviceTakingDate}</td>
+                  <td>
+                    <div className="font-medium">{booking.currentUserName}</div>
+                    <div className="text-xs text-base-content/60">
+                      {booking.currentUserEmail}
+                    </div>
+                  </td>
+                  <td>{booking.specialInstructions}</td>
+                  <td>
+                    <select
+                      value={booking.serviceStatus}
+                      onChange={(e) =>
+                        handleStatusChange(booking._id, e.target.value)
+                      }
+                      className="select select-bordered bg-base-100 border-secondary focus:outline-primary"
+                    >
+                      <option value="pending">Pending</option>
+                      <option value="working">Working</option>
+                      <option value="completed">Completed</option>
+                    </select>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

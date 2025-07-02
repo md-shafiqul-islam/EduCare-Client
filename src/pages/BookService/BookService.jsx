@@ -78,7 +78,7 @@ const BookService = () => {
   }
 
   return (
-    <div className="max-w-2xl mx-auto bg-base-200 p-8 rounded-2xl shadow-md my-10 space-y-6 border border-base-300">
+    <div className="max-w-2xl mx-auto bg-base-200 p-6 rounded-xl shadow-lg my-10 space-y-6 border border-base-300">
       <h2 className="text-3xl font-bold text-center text-primary">
         Book Service
       </h2>

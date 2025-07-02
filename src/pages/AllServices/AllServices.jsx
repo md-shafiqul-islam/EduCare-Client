@@ -50,6 +50,17 @@ const AllServices = () => {
     setFilteredServices(sorted);
   }, [services, sortOption]);
 
+  if (filteredServices.length === 0) {
+    return (
+      <div className="text-center text-primary mt-16">
+        <h2 className="text-2xl font-semibold mb-2">Service To Do</h2>
+        <p className="text-center text-lg text-base-content mt-10">
+          No services available at the moment.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-base-200 px-4 py-16">
       <div className="max-w-6xl mx-auto space-y-12">
@@ -100,12 +111,8 @@ const AllServices = () => {
           <div className="flex flex-col items-center justify-center mt-20 gap-2">
             <Spinner />
             <p className="text-sm text-base-content font-medium">
-              No services available at the moment.
+              Loading services, please wait...
             </p>
-          </div>
-        ) : filteredServices.length === 0 ? (
-          <div className="text-center text-lg font-semibold mt-12">
-            No services match your search.
           </div>
         ) : (
           <div className="space-y-6">

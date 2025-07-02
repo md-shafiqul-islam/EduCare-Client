@@ -46,7 +46,7 @@ const StatsCounter = () => {
           {stats.map((stat, index) => (
             <Motion.div
               key={stat.label}
-              className="bg-base-300 p-6 rounded-xl space-y-2 shadow-lg border border-secondary hover:scale-[1.03] transition-transform duration-300"
+              className="bg-base-300 p-6 rounded-xl space-y-3 shadow-lg border border-secondary hover:scale-[1.03] transition-transform duration-300"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}

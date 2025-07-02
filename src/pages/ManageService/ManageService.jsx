@@ -138,192 +138,176 @@ const ManageService = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto bg-base-200 px-4 py-16 space-y-12">
-      <div className="text-center mb-10 max-w-3xl mx-auto">
-        <h2 className="text-3xl font-bold text-primary mb-4">
-          Manage My Services
-        </h2>
-        <p className="text-base text-base-content">
-          Here are all the services you have added.
-        </p>
-      </div>
-
-      {myServices.length === 0 ? (
-        <p className="text-center text-lg text-base-content mt-10">
-          You haven’t added any service yet.
-        </p>
-      ) : (
-        <div className="grid md:grid-cols-2 gap-6">
-          {myServices.map((service) => (
-            <div
-              key={service._id}
-              className="bg-base-200 border border-base-300 rounded-xl shadow hover:shadow-lg transition duration-300"
-            >
-              <img
-                src={service.image}
-                alt={service.name}
-                className="w-full h-52 object-cover rounded-t-xl"
-              />
-
-              <div className="p-5 space-y-2 text-base-content">
-                <p>
-                  <span className="font-semibold">Price:</span>{" "}
-                  <span className="font-normal text-secondary">
-                    ৳ {service.price}
-                  </span>
-                </p>
-
-                <p>
-                  <span className="font-semibold">Category:</span>{" "}
-                  <span className="font-normal">{service.name}</span>
-                </p>
-
-                <p>
-                  <span className="font-semibold">Description:</span>{" "}
-                  <span className="font-normal">
-                    {service.description?.slice(0, 80)}...
-                  </span>
-                </p>
-
-                <p>
-                  <span className="font-semibold">Service Area:</span>{" "}
-                  {service.areas.map((area, index) => (
-                    <span
-                      key={index}
-                      className="inline-block bg-secondary/10 text-secondary px-2 py-1 rounded mr-1"
-                    >
-                      {area}
-                    </span>
-                  ))}
-                </p>
-
-                <div className="flex justify-between mt-4">
-                  <button
-                    onClick={() => {
-                      setSelectedService(service);
-                    }}
-                    className="btn btn-sm btn-primary"
-                  >
-                    Edit
-                  </button>
-
-                  <button
-                    onClick={() => handleDeleteService(service._id)}
-                    className="btn btn-sm btn-error"
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
+    <div className="bg-base-200">
+      <div className="max-w-6xl mx-auto px-4 py-16 space-y-12">
+        <div className="text-center mb-10 max-w-3xl mx-auto">
+          <h2 className="text-3xl font-bold text-primary mb-4">
+            Manage My Services
+          </h2>
+          <p className="text-base text-base-content">
+            Here are all the services you have added. You can edit or delete
+            them below.
+          </p>
         </div>
-      )}
 
-      {selectedService && (
-        <dialog open className="modal modal-bottom sm:modal-middle">
-          <form
-            method="dialog"
-            onSubmit={handleUpdateService}
-            className="modal-box bg-base-300 text-base-content"
-          >
-            <h3 className="font-bold text-lg text-primary mb-4">
-              Update{" "}
-              <span className="text-secondary">{selectedService.name}</span>{" "}
-              Service
-            </h3>
+        <div className="overflow-x-auto rounded-xl bg-base-100 shadow border border-secondary">
+          <table className="table w-full">
+            <thead>
+              <tr className="text-base text-accent">
+                <th>Image</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Areas</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {myServices.map((service) => (
+                <tr key={service._id} className="hover:bg-base-200">
+                  <td>
+                    <img
+                      src={service.image}
+                      alt={service.name}
+                      className="w-20 h-16 object-cover rounded"
+                    />
+                  </td>
+                  <td>{service.name}</td>
+                  <td>৳ {service.price}</td>
+                  <td>
+                    {service.areas.map((area, index) => (
+                      <span
+                        key={index}
+                        className="inline-block bg-secondary/10 text-secondary px-2 py-1 rounded mr-1 text-xs"
+                      >
+                        {area}
+                      </span>
+                    ))}
+                  </td>
+                  <td className="space-x-2">
+                    <button
+                      onClick={() => setSelectedService(service)}
+                      className="btn btn-xs btn-primary"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleDeleteService(service._id)}
+                      className="btn btn-xs btn-error"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
-            <div>
-              <label className="block text-sm font-medium text-secondary">
-                Image URL
-              </label>
-              <p className="text-base-content/60 mb-1">
-                Provide a link to an image for your service.
-              </p>
-              <input
-                type="text"
-                name="image"
-                defaultValue={selectedService.image}
-                className="input input-bordered w-full bg-base-200 text-base-content"
-                required
-              />
-            </div>
+        {selectedService && (
+          <dialog open className="modal modal-bottom sm:modal-middle">
+            <form
+              method="dialog"
+              onSubmit={handleUpdateService}
+              className="modal-box bg-base-300 text-base-content"
+            >
+              <h3 className="font-bold text-lg text-primary mb-4">
+                Update{" "}
+                <span className="text-secondary">{selectedService.name}</span>{" "}
+                Service
+              </h3>
 
-            <div className="mt-4">
-              <label className="block text-sm font-medium text-secondary">
-                Service Name
-              </label>
-              <input
-                type="text"
-                name="name"
-                defaultValue={selectedService.name}
-                className="input input-bordered w-full bg-base-200 text-base-content"
-                required
-              />
-            </div>
+              <div>
+                <label className="block text-sm font-medium text-secondary">
+                  Image URL
+                </label>
+                <p className="text-base-content/60 mb-1">
+                  Provide a link to an image for your service.
+                </p>
+                <input
+                  type="text"
+                  name="image"
+                  defaultValue={selectedService.image}
+                  className="input input-bordered w-full bg-base-200 text-base-content"
+                  required
+                />
+              </div>
 
-            <div className="mt-4">
-              <label className="block text-sm font-medium text-secondary">
-                Description
-              </label>
-              <p className="text-xs text-base-content/60 mb-1">
-                Briefly describe your service (max 300 characters).
-              </p>
-              <textarea
-                name="description"
-                defaultValue={selectedService.description}
-                className="textarea textarea-bordered w-full bg-base-200 text-base-content"
-                required
-              />
-            </div>
+              <div className="mt-4">
+                <label className="block text-sm font-medium text-secondary">
+                  Service Name
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  defaultValue={selectedService.name}
+                  className="input input-bordered w-full bg-base-200 text-base-content"
+                  required
+                />
+              </div>
 
-            <div className="mt-4">
-              <label className="block text-sm font-medium text-secondary">
-                Price (in ৳)
-              </label>
-              <input
-                type="number"
-                name="price"
-                defaultValue={selectedService.price}
-                className="input input-bordered w-full bg-base-200 text-base-content"
-                required
-              />
-            </div>
+              <div className="mt-4">
+                <label className="block text-sm font-medium text-secondary">
+                  Description
+                </label>
+                <p className="text-xs text-base-content/60 mb-1">
+                  Briefly describe your service (max 300 characters).
+                </p>
+                <textarea
+                  name="description"
+                  defaultValue={selectedService.description}
+                  className="textarea textarea-bordered w-full bg-base-200 text-base-content"
+                  required
+                />
+              </div>
 
-            <div className="mt-4">
-              <label className="block text-sm font-medium text-secondary">
-                Service Areas
-              </label>
-              <p className="text-xs text-base-content/60 mb-1">
-                Separate areas with commas (e.g., Dhaka, Mymensingh)
-              </p>
-              <input
-                type="text"
-                name="areas"
-                defaultValue={selectedService.areas?.join(", ")}
-                className="input input-bordered w-full bg-base-200 text-base-content"
-                required
-              />
-            </div>
+              <div className="mt-4">
+                <label className="block text-sm font-medium text-secondary">
+                  Price (in ৳)
+                </label>
+                <input
+                  type="number"
+                  name="price"
+                  defaultValue={selectedService.price}
+                  className="input input-bordered w-full bg-base-200 text-base-content"
+                  required
+                />
+              </div>
 
-            <div className="modal-action mt-6">
-              <button
-                type="submit"
-                className="btn bg-accent hover:bg-accent-focus text-white"
-              >
-                Save
-              </button>
-              <button
-                type="button"
-                onClick={() => setSelectedService(null)}
-                className="btn bg-base-200 text-base-content border border-primary hover:bg-primary hover:text-white"
-              >
-                Cancel
-              </button>
-            </div>
-          </form>
-        </dialog>
-      )}
+              <div className="mt-4">
+                <label className="block text-sm font-medium text-secondary">
+                  Service Areas
+                </label>
+                <p className="text-xs text-base-content/60 mb-1">
+                  Separate areas with commas (e.g., Dhaka, Mymensingh)
+                </p>
+                <input
+                  type="text"
+                  name="areas"
+                  defaultValue={selectedService.areas?.join(", ")}
+                  className="input input-bordered w-full bg-base-200 text-base-content"
+                  required
+                />
+              </div>
+
+              <div className="modal-action mt-6">
+                <button
+                  type="submit"
+                  className="btn bg-accent hover:bg-accent-focus text-white"
+                >
+                  Save
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setSelectedService(null)}
+                  className="btn bg-base-200 text-base-content border border-primary hover:bg-primary hover:text-white"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </dialog>
+        )}
+      </div>
     </div>
   );
 };

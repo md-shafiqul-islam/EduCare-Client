@@ -50,7 +50,7 @@ const Subjects = () => {
           {subjectList.map((subject) => (
             <li
               key={subject.name}
-              className="bg-base-200  p-6 rounded-xl shadow hover:shadow-lg hover:scale-[1.03] transition-all duration-300 cursor-default text-center space-y-3"
+              className="bg-base-300 p-6 rounded-xl space-y-3 shadow-lg border border-secondary hover:scale-[1.03] transition-transform duration-300 text-center"
             >
               <div className="flex justify-center">{subject.icon}</div>
               <h4 className="text-lg font-semibold text-primary">

@@ -1,10 +1,10 @@
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
 import { Link } from "react-router";
 
 const ServiceCard = ({ service }) => {
   return (
-    <motion.div
-      className="bg-base-100 p-6 rounded-2xl shadow-md border border-base-300 space-y-6"
+    <Motion.div
+      className="bg-base-300 p-6 rounded-xl shadow-lg border border-secondary space-y-6"
       whileHover={{ scale: 1.02 }}
       transition={{ type: "spring", stiffness: 100 }}
     >
@@ -62,7 +62,7 @@ const ServiceCard = ({ service }) => {
           </Link>
         </div>
       </div>
-    </motion.div>
+    </Motion.div>
   );
 };
 
