@@ -51,11 +51,11 @@ const AllServices = () => {
   }, [services, sortOption]);
 
   return (
-    <div className="min-h-screen bg-base-200 px-4 py-16">
-      <div className="max-w-6xl mx-auto space-y-10">
+    <div className="bg-base-200 px-4 py-16">
+      <div className="max-w-6xl mx-auto space-y-12">
         {/* Heading */}
         <div className="text-center space-y-2">
-          <h2 className="text-3xl font-bold text-primary">
+          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
             All Available Services
           </h2>
           <p className="text-base text-base-content max-w-3xl mx-auto">

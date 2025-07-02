@@ -25,7 +25,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="">
+    <div>
       <Motion.section
         custom={0}
         initial="hidden"

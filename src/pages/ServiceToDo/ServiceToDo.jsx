@@ -78,13 +78,13 @@ const ServiceToDo = () => {
   }
 
   return (
-    <div className="px-6 py-10">
+    <div className="max-w-6xl mx-auto bg-base-200 px-4 py-16 space-y-12">
       {/* Heading Section */}
-      <div className="text-center mb-10">
-        <h1 className="text-4xl font-extrabold text-primary mb-2">
+      <div className="text-center mb-10 max-w-3xl mx-auto">
+        <h1 className="text-3xl font-bold text-primary mb-4">
           Services To Handle
         </h1>
-        <p className="text-lg text-base-content max-w-xl mx-auto">
+        <p className="text-base text-base-content">
           This page lists all the booked services where you are the provider.
           You can manage the current status of each service using the dropdown
           below.

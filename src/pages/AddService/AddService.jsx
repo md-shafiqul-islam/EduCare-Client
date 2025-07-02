@@ -66,19 +66,20 @@ const AddService = () => {
   };
 
   return (
-    <div className="min-h-screen bg-base-200 flex justify-center items-center px-4 py-12">
-      <div className="w-full max-w-3xl bg-base-100 p-10 rounded-xl shadow-lg border border-base-300">
-        <h2 className="text-3xl font-bold text-center mb-4 text-primary">
+    <div className="max-w-6xl mx-auto bg-base-200 px-4 py-16 space-y-12">
+      <div className="text-center mb-10 max-w-3xl mx-auto">
+        <h2 className="text-3xl font-bold text-primary mb-4">
           Add a New Service
         </h2>
-
-        <p className="text-center text-base text-gray-500 mb-8 max-w-2xl mx-auto">
+        <p className="text-base text-base-content">
           Empower your community by offering valuable services! As a trusted
           provider, your expertise can now reach more people through EduCare.
           Fill in the form below with accurate details about your service — our
           users are waiting to benefit from your skills.
         </p>
+      </div>
 
+      <div className="bg-base-100 p-10 rounded-xl shadow-lg border border-base-300">
         <form
           onSubmit={handleAddService}
           className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4"

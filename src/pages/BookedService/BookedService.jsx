@@ -32,12 +32,12 @@ const BookedService = () => {
   }, [user?.email, axiosSecure]);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-12">
-      <div className="text-center mb-10">
-        <h2 className="text-4xl font-extrabold text-primary mb-2">
+    <div className="max-w-6xl mx-auto bg-base-200 px-4 py-16 space-y-12">
+      <div className="text-center mb-10 max-w-3xl mx-auto">
+        <h2 className="text-3xl font-bold text-primary mb-4">
           My Booked Services
         </h2>
-        <p className="text-base-content text-lg">
+        <p className="text-base text-base-content">
           Here's a list of all services you’ve booked so far.
         </p>
       </div>
