@@ -15,6 +15,8 @@ import BookService from "../pages/BookService/BookService";
 import BookedService from "../pages/BookedService/BookedService";
 import ManageService from "../pages/ManageService/ManageService";
 import ServiceToDo from "../pages/ServiceToDo/ServiceToDo";
+import About from "../pages/About/About";
+import Subjects from "../pages/Subjects/Subjects";
 
 const router = createBrowserRouter([
   {
@@ -27,8 +29,16 @@ const router = createBrowserRouter([
         Component: Home,
       },
       {
-        path: "/all-services",
+        path: "all-services",
         Component: AllServices,
+      },
+      {
+        path: "about",
+        Component: About,
+      },
+      {
+        path: "subjects",
+        Component: Subjects,
       },
       {
         path: "/service/:id",

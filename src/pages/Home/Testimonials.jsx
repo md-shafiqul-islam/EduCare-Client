@@ -18,40 +18,46 @@ const Testimonials = () => {
     },
   ];
   return (
-    <section className="py-14 bg-base-200">
-      <div className="text-center mb-10">
-        <h2 className="text-3xl font-bold text-primary mb-2">
-          What Our Users Say
-        </h2>
-        <p className="text-base-content max-w-xl mx-auto">
-          Real experiences from students and parents who trusted EduCare for
-          learning.
-        </p>
-      </div>
+    <section className="py-20 px-4 lg:px-10">
+      <div className="max-w-6xl mx-auto space-y-12">
+        <div className="text-center space-y-2">
+          <h2 className="text-3xl lg:text-4xl font-bold text-primary">
+            What Our Users Say
+          </h2>
+          <p className="text-base-content max-w-xl mx-auto">
+            Real experiences from students and parents who trusted EduCare for
+            learning.
+          </p>
+        </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-6 md:px-12">
-        {reviews.map((review, index) => (
-          <div
-            key={index}
-            className="bg-base-100 rounded-xl p-6 shadow-md border border-base-300 space-y-4 relative"
-          >
-            <FaQuoteLeft className="text-3xl text-accent absolute top-4 left-4" />
-            <p className="text-base-content italic mt-8">"{review.feedback}"</p>
-            <div className="flex items-center gap-4 mt-4">
-              <img
-                src={review.image}
-                alt={review.name}
-                className="w-12 h-12 rounded-full border"
-              />
-              <div>
-                <h4 className="text-base font-semibold">{review.name}</h4>
-                <span className="text-sm text-base-content">
-                  {review.position}
-                </span>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {reviews.map((review, index) => (
+            <div
+              key={index}
+              className="relative bg-base-200 p-6 rounded-xl space-y-4 shadow-lg border border-secondary"
+            >
+              <FaQuoteLeft className="absolute top-4 left-4 text-3xl text-accent" />
+              <p className="text-base-content italic mt-8">
+                "{review.feedback}"
+              </p>
+              <div className="flex items-center gap-4 mt-4">
+                <img
+                  src={review.image}
+                  alt={review.name}
+                  className="w-12 h-12 rounded-full border"
+                />
+                <div>
+                  <h4 className="text-base text-secondary font-semibold">
+                    {review.name}
+                  </h4>
+                  <span className="text-sm font-medium text-base-content">
+                    {review.position}
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );

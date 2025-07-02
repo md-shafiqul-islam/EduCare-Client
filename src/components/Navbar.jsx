@@ -30,6 +30,8 @@ const Navbar = () => {
   const commonNavItems = [
     { name: "Home", path: "/" },
     { name: "Services", path: "/all-services" },
+    { name: "About Us", path: "/about" },
+    { name: "Subjects", path: "/subjects" },
   ];
 
   const dashboardItems = [
@@ -75,145 +77,144 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="flex items-center justify-between bg-base-300 px-4 py-3 shadow-md relative">
-      {/* Left section: Logo + Website Name */}
-      <div className="flex items-center gap-4">
-        <button
-          className="lg:hidden cursor-pointer"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle Menu"
-        >
-          {menuOpen ? <X /> : <Menu />}
-        </button>
-
-        <Link to="/" className="flex items-center gap-2">
-          <img
-            className="w-10 h-10 cursor-pointer hidden lg:inline-block"
-            src={navLogo}
-            alt="Education Logo"
-          />
-          <h1 className="text-lg font-bold select-none">
-            <span className="text-secondary">Edu</span>
-            <span className="text-primary">Care</span>
-          </h1>
-        </Link>
-      </div>
-
-      {/* Middle section: Nav items for large screens */}
-      <ul className="hidden lg:flex items-center gap-6">
-        {commonNavItems.map((item) => (
-          <li key={item.name}>
-            <NavLink
-              to={item.path}
-              className={({ isActive }) =>
-                `px-3 py-2 rounded-md font-medium ${
-                  isActive
-                    ? "bg-primary text-white"
-                    : "hover:bg-base-200 hover:text-accent"
-                }`
-              }
+    <>
+      {/* Main Navbar */}
+      <nav className="bg-base-300 shadow-md backdrop-blur-sm">
+        <div className="flex items-center justify-between px-4 py-3 max-w-7xl mx-auto">
+          {/* Left: Logo + Mobile Toggle */}
+          <div className="flex items-center gap-4">
+            <button
+              className="lg:hidden cursor-pointer"
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label="Toggle Menu"
             >
-              {item.name}
-            </NavLink>
-          </li>
-        ))}
+              {menuOpen ? <X /> : <Menu />}
+            </button>
 
-        {!user && (
-          <li>
-            <NavLink
-              to="/auth/login"
-              className={({ isActive }) =>
-                `px-3 py-2 rounded-md font-medium ${
-                  isActive
-                    ? "bg-primary text-white"
-                    : "hover:bg-base-200 hover:text-accent"
-                }`
-              }
-            >
-              Login
-            </NavLink>
-          </li>
-        )}
+            <Link to="/" className="flex items-center gap-2">
+              <img
+                className="w-10 h-10 cursor-pointer hidden lg:inline-block"
+                src={navLogo}
+                alt="Education Logo"
+              />
+              <h1 className="text-xl font-extrabold select-none tracking-wide">
+                <span className="text-primary">Edu</span>
+                <span className="text-secondary">Care</span>
+              </h1>
+            </Link>
+          </div>
 
-        {user && (
-          <>
-            <li className="relative">
-              <button
-                onClick={() => setDashboardOpen(!dashboardOpen)}
-                className="flex items-center gap-1 px-3 py-2 rounded-md font-medium hover:bg-base-200"
-                aria-haspopup="true"
-                aria-expanded={dashboardOpen}
-                aria-label="Dashboard dropdown"
-              >
-                Dashboard <ChevronDown size={16} />
-              </button>
-
-              {dashboardOpen && (
-                <ul className="absolute right-0 mt-2 w-48 rounded-md bg-base-100 shadow-lg z-50">
-                  {dashboardItems.map((item) => (
-                    <li key={item.name}>
-                      <NavLink
-                        to={item.path}
-                        onClick={() => setDashboardOpen(false)}
-                        className={({ isActive }) =>
-                          `block px-4 py-2 transition-colors duration-200 rounded-md ${
-                            isActive
-                              ? "bg-primary text-white"
-                              : "hover:bg-base-200 hover:text-primary"
-                          }`
-                        }
-                      >
-                        {item.name}
-                      </NavLink>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </li>
-
-            <li>
-              {/* Logout with user info */}
-              <div className="flex items-center gap-2 cursor-pointer group relative">
-                <img
-                  src={user?.photoURL}
-                  alt={`${user?.displayName}'s avatar`}
-                  className="w-8 h-8 rounded-full"
-                  title={user?.displayName}
-                />
-                <span className="font-semibold">{user?.displayName}</span>
-                <button
-                  onClick={handleSignOut}
-                  className="btn btn-sm btn-outline ml-4"
+          {/* Middle: Desktop Nav Items */}
+          <ul className="hidden lg:flex items-center gap-6">
+            {commonNavItems.map((item) => (
+              <li key={item.name}>
+                <NavLink
+                  to={item.path}
+                  className={({ isActive }) =>
+                    `px-3 py-2 rounded-md font-semibold transition-colors ${
+                      isActive
+                        ? "bg-primary text-base-100"
+                        : "hover:bg-base-200 hover:text-primary"
+                    }`
+                  }
                 >
-                  Logout
-                </button>
-              </div>
-            </li>
-          </>
-        )}
-      </ul>
+                  {item.name}
+                </NavLink>
+              </li>
+            ))}
 
-      {/* Right section: Theme toggle */}
-      <div className="flex items-center gap-4">
-        <button
-          onClick={toggleTheme}
-          className="btn btn-sm btn-outline rounded-full"
-          title="Toggle Theme"
-          aria-label="Toggle Theme"
-        >
-          {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
-        </button>
-      </div>
+            {!user && (
+              <li>
+                <NavLink
+                  to="/auth/login"
+                  className={({ isActive }) =>
+                    `px-3 py-2 rounded-md font-semibold transition-colors ${
+                      isActive
+                        ? "bg-primary text-white"
+                        : "hover:bg-base-200 hover:text-primary"
+                    }`
+                  }
+                >
+                  Login
+                </NavLink>
+              </li>
+            )}
 
-      {/* Mobile menu */}
+            {user && (
+              <>
+                <li className="relative">
+                  <button
+                    onClick={() => setDashboardOpen(!dashboardOpen)}
+                    className="flex items-center gap-1 px-3 py-2 rounded-md font-semibold hover:text-primary hover:bg-base-200 transition-colors"
+                    aria-haspopup="true"
+                    aria-expanded={dashboardOpen}
+                  >
+                    Dashboard <ChevronDown size={16} />
+                  </button>
+                  {dashboardOpen && (
+                    <ul className="absolute right-0 mt-2 w-48 bg-base-300 shadow-lg z-50 rounded-lg overflow-hidden">
+                      {dashboardItems.map((item) => (
+                        <li key={item.name}>
+                          <NavLink
+                            to={item.path}
+                            onClick={() => setDashboardOpen(false)}
+                            className={({ isActive }) =>
+                              `block px-4 py-2 text-sm font-medium ${
+                                isActive
+                                  ? "bg-secondary text-white"
+                                  : "hover:bg-base-200 hover:text-primary"
+                              }`
+                            }
+                          >
+                            {item.name}
+                          </NavLink>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+
+                <li className="flex items-center gap-2">
+                  <img
+                    src={user?.photoURL}
+                    alt={user?.displayName}
+                    className="w-8 h-8 rounded-full"
+                    title={user?.displayName}
+                  />
+                  <span className="font-medium">{user?.displayName}</span>
+                  <button
+                    onClick={handleSignOut}
+                    className="btn btn-sm btn-outline hover:bg-accent"
+                  >
+                    Logout
+                  </button>
+                </li>
+              </>
+            )}
+          </ul>
+
+          {/* Right: Theme Toggle */}
+          <div className="flex items-center">
+            <button
+              onClick={toggleTheme}
+              className="btn btn-sm btn-outline rounded-full"
+              title="Toggle Theme"
+            >
+              {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      {/* Mobile Menu Drawer */}
       {menuOpen && (
-        <div className="fixed inset-0 z-50 bg-opacity-40">
+        <div className="fixed inset-0 z-50">
           <div
             className="absolute inset-0"
             onClick={() => setMenuOpen(false)}
-            aria-hidden="true"
-          />
-          <div className="absolute top-14 left-0 w-64 bg-base-100 p-6 shadow-lg rounded-r-lg overflow-auto">
+          ></div>
+
+          <div className="absolute top-0 left-0 mt-12 h-fit w-72 bg-base-300 shadow-xl rounded-r-2xl p-6 z-50 transition-all duration-300 ease-in-out">
             <ul className="flex flex-col gap-4">
               {commonNavItems.map((item) => (
                 <li key={item.name}>
@@ -221,8 +222,10 @@ const Navbar = () => {
                     to={item.path}
                     onClick={() => setMenuOpen(false)}
                     className={({ isActive }) =>
-                      `block px-3 py-2 rounded-md ${
-                        isActive ? "bg-primary text-white" : "hover:bg-base-200"
+                      `px-3 py-2 rounded-md font-semibold transition-colors ${
+                        isActive
+                          ? "bg-primary text-base-100"
+                          : "hover:bg-base-200 hover:text-primary"
                       }`
                     }
                   >
@@ -237,8 +240,10 @@ const Navbar = () => {
                     to="/auth/login"
                     onClick={() => setMenuOpen(false)}
                     className={({ isActive }) =>
-                      `block px-3 py-2 rounded-md ${
-                        isActive ? "bg-primary text-white" : "hover:bg-base-200"
+                      `block px-4 py-2 rounded-md font-medium ${
+                        isActive
+                          ? "bg-primary text-white"
+                          : "hover:bg-base-200 hover:text-primary"
                       }`
                     }
                   >
@@ -252,15 +257,13 @@ const Navbar = () => {
                   <li>
                     <button
                       onClick={() => setDashboardOpen(!dashboardOpen)}
-                      className="flex items-center justify-between w-full px-3 py-2 rounded-md hover:bg-base-200"
-                      aria-haspopup="true"
-                      aria-expanded={dashboardOpen}
+                      className="flex items-center justify-between w-full px-4 py-2 rounded-md font-medium hover:bg-base-200"
                     >
                       Dashboard <ChevronDown size={16} />
                     </button>
 
                     {dashboardOpen && (
-                      <ul className="mt-2 ml-4 flex flex-col gap-2">
+                      <ul className="ml-4 mt-2 flex flex-col gap-2">
                         {dashboardItems.map((item) => (
                           <li key={item.name}>
                             <NavLink
@@ -270,10 +273,10 @@ const Navbar = () => {
                                 setDashboardOpen(false);
                               }}
                               className={({ isActive }) =>
-                                `block px-3 py-2 rounded-md ${
+                                `block px-3 py-2 rounded-md font-medium ${
                                   isActive
                                     ? "bg-primary text-white"
-                                    : "hover:bg-base-200"
+                                    : "hover:bg-base-200 hover:text-primary"
                                 }`
                               }
                             >
@@ -284,13 +287,14 @@ const Navbar = () => {
                       </ul>
                     )}
                   </li>
+
                   <li>
                     <button
                       onClick={() => {
                         handleSignOut();
                         setMenuOpen(false);
                       }}
-                      className="btn btn-outline w-full"
+                      className="btn btn-outline w-full mt-2 hover:bg-accent"
                     >
                       Logout
                     </button>
@@ -301,7 +305,7 @@ const Navbar = () => {
           </div>
         </div>
       )}
-    </nav>
+    </>
   );
 };
 

@@ -10,22 +10,21 @@
   name: "light";
   default: true;
 
-  --color-primary: #2563eb;
-  --color-secondary: #10b981;
+  --color-primary: #1e40af;
+  --color-secondary: #0d9488;
   --color-accent: #f59e0b;
-  --text-accent: #7c3aed;
-  --color-base-200: #f9fafb;
-  --color-base-300: #f3f4f6;
+  --text-accent: #334155;
+  --color-base-200: #f8fafc;
+  --color-base-300: #e2e8f0;
 }
 
-/* Dark Theme */
 @plugin "daisyui/theme" {
   name: "dark";
 
-  --color-primary: #3b82f6;
-  --color-secondary: #22c55e;
-  --color-accent: #fbbf24;
-  --text-accent: #c084fc;
+  --color-primary: #93c5fd;
+  --color-secondary: #5eead4;
+  --color-accent: #facc15;
+  --text-accent: #f1f5f9;
   --color-base-200: #1e293b;
   --color-base-300: #0f172a;
 }
