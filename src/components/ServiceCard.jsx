@@ -4,7 +4,7 @@ import { Link } from "react-router";
 const ServiceCard = ({ service }) => {
   return (
     <Motion.div
-      className="bg-base-300 p-6 rounded-xl shadow-lg border border-secondary space-y-6"
+      className="bg-base-100 p-6 rounded-xl shadow-lg border border-secondary space-y-6"
       whileHover={{ scale: 1.02 }}
       transition={{ type: "spring", stiffness: 100 }}
     >

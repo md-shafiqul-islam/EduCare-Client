@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import Spinner from "../../components/Spinner";
 
 const BookedService = () => {
   useEffect(() => {
@@ -11,6 +12,7 @@ const BookedService = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [bookedService, setBookedService] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!user?.email) return;
@@ -18,8 +20,10 @@ const BookedService = () => {
     axiosSecure(`/booked-services/${user?.email}`)
       .then((data) => {
         setBookedService(data?.data || []);
+        setLoading(false);
       })
       .catch((error) => {
+        setLoading(false);
         Swal.fire({
           icon: "error",
           title: "Oops!",
@@ -43,10 +47,14 @@ const BookedService = () => {
           </p>
         </div>
 
-        {bookedService.length === 0 ? (
-          <p className="text-center text-lg text-base-content mt-10">
+        {loading ? (
+          <>
+            <Spinner />
+          </>
+        ) : bookedService.length === 0 ? (
+          <div className="text-center text-lg font-semibold mt-12">
             You haven’t booked any service yet.
-          </p>
+          </div>
         ) : (
           <div className="grid md:grid-cols-2 gap-6">
             {bookedService.map((service) => (

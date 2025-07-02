@@ -26,14 +26,6 @@ const PopularServices = () => {
       });
   }, []);
 
-  if (loading) {
-    return (
-      <div className="py-20 flex justify-center items-center">
-        <Spinner />
-      </div>
-    );
-  }
-
   return (
     <section className="py-20 px-4 lg:px-10 bg-base-200">
       <div className="max-w-6xl mx-auto space-y-12">
@@ -49,60 +41,105 @@ const PopularServices = () => {
         </div>
 
         {/* Grid of Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {popularServices.map((service) => (
-            <Fade key={service._id} triggerOnce cascade damping={0.1}>
-              <div className="bg-base-100 border border-secondary rounded-xl shadow-md hover:shadow-lg hover:scale-[1.03] transition-all duration-300 h-full flex flex-col">
-                <img
-                  src={service.image}
-                  alt={service.name}
-                  className="w-full h-40 object-cover rounded-t-xl"
-                />
+        {loading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {Array.from({ length: 8 }).map((_, index) => (
+              <div
+                key={index}
+                className="bg-base-100 border border-secondary rounded-xl shadow-md animate-pulse h-full flex flex-col"
+              >
+                {/* Image skeleton */}
+                <div className="w-full h-40 bg-base-300 rounded-t-xl" />
+
                 <div className="p-4 flex flex-col justify-between flex-1">
+                  {/* Title + description */}
                   <div>
-                    <h3 className="text-lg font-semibold text-primary mb-1">
-                      {service.name}
-                    </h3>
-                    <p className="text-sm text-base-content mb-3">
-                      {service.description.slice(0, 80)}...
-                    </p>
+                    <div className="h-5 bg-base-300 rounded w-3/4 mb-2" />
+                    <div className="h-4 bg-base-300 rounded w-full mb-2" />
+                    <div className="h-4 bg-base-300 rounded w-5/6 mb-3" />
                   </div>
 
+                  {/* Bottom section */}
                   <div className="mt-auto">
                     <div className="flex items-center gap-2 mb-2">
-                      <img
-                        src={service.serviceProviderImage}
-                        alt="Provider"
-                        className="w-7 h-7 rounded-full object-cover"
-                      />
-                      <span className="text-sm font-medium text-base-content">
-                        {service.serviceProviderName}
-                      </span>
+                      <div className="w-7 h-7 rounded-full bg-base-300" />
+                      <div className="h-4 w-24 bg-base-300 rounded" />
                     </div>
+
                     <div className="flex justify-between items-center mb-2">
-                      <span className="text-sm font-bold text-secondary">
-                        ৳ {service.price}
-                      </span>
-                      <Link
-                        to={`/service/${service._id}`}
-                        className="btn btn-primary text-sm hover:underline font-medium"
-                      >
-                        See More →
-                      </Link>
+                      <div className="h-4 w-16 bg-base-300 rounded" />
+                      <div className="h-8 w-24 bg-base-300 rounded" />
                     </div>
                   </div>
                 </div>
               </div>
-            </Fade>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : popularServices.length === 0 ? (
+          <div className="text-center text-lg font-semibold mt-12">
+            No popular services available
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {popularServices.map((service) => (
+              <Fade key={service._id} triggerOnce cascade damping={0.1}>
+                <div className="bg-base-100 border border-secondary rounded-xl shadow-md hover:shadow-lg hover:scale-[1.03] transition-all duration-300 h-full flex flex-col">
+                  <img
+                    src={service.image}
+                    alt={service.name}
+                    className="w-full h-40 object-cover rounded-t-xl"
+                  />
+                  <div className="p-4 flex flex-col justify-between flex-1">
+                    <div>
+                      <h3 className="text-lg font-semibold text-primary mb-1">
+                        {service.name}
+                      </h3>
+                      <p className="text-sm text-base-content mb-3">
+                        {service.description.slice(0, 80)}...
+                      </p>
+                    </div>
+
+                    <div className="mt-auto">
+                      <div className="flex items-center gap-2 mb-2">
+                        <img
+                          src={service.serviceProviderImage}
+                          alt="Provider"
+                          className="w-7 h-7 rounded-full object-cover"
+                        />
+                        <span className="text-sm font-medium text-base-content">
+                          {service.serviceProviderName}
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="text-sm font-bold text-secondary">
+                          ৳ {service.price}
+                        </span>
+                        <Link
+                          to={`/service/${service._id}`}
+                          className="btn btn-primary text-sm hover:underline font-medium"
+                        >
+                          See More →
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Fade>
+            ))}
+          </div>
+        )}
 
         {/* Show All Button */}
-        <div className="text-center">
-          <Link to="/all-services" className="btn btn-primary btn-wide">
-            Show All Services
-          </Link>
-        </div>
+        {popularServices.length > 0 && (
+          <div className="text-center space-y-2">
+            <p className="text-sm text-base-content">
+              Want to explore more educational services?
+            </p>
+            <Link to="/all-services" className="btn btn-secondary btn-wide">
+              Show All Services
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   );

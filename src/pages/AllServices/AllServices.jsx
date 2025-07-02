@@ -50,31 +50,17 @@ const AllServices = () => {
     setFilteredServices(sorted);
   }, [services, sortOption]);
 
-  if (filteredServices.length === 0) {
-    return (
-      <div className="text-center text-primary mt-16">
-        <h2 className="text-2xl font-semibold mb-2">Service To Do</h2>
-        <p className="text-center text-lg text-base-content mt-10">
-          No services available at the moment.
-        </p>
-      </div>
-    );
-  }
-
   return (
-    <div className="bg-base-200 px-4 py-16">
-      <div className="max-w-6xl mx-auto space-y-12">
+    <div className="bg-base-200">
+      <div className="max-w-6xl mx-auto px-4 py-16 space-y-12">
         {/* Heading */}
         <div className="text-center space-y-2">
           <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
             All Available Services
           </h2>
           <p className="text-base text-base-content max-w-3xl mx-auto">
-            Explore a curated selection of educational services offered by
-            experienced and verified providers. Whether you're seeking
-            one-on-one home tuition, expert coaching for exams, or skill-based
-            training, EduCare connects learners with the right mentors across
-            Bangladesh.
+            Discover verified educational services including private tuition,
+            coaching, and skill-based training — all across Bangladesh.
           </p>
         </div>
 
@@ -82,7 +68,7 @@ const AllServices = () => {
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="relative w-full max-w-md">
             <Search
-              className="absolute z-50 left-3 top-1/2 -translate-y-1/2 text-base-content"
+              className="absolute z-50 left-3 top-1/2 -translate-y-1/2 text-base-content opacity-50"
               size={20}
             />
             <input
@@ -108,11 +94,19 @@ const AllServices = () => {
 
         {/* Content Display */}
         {loading ? (
-          <div className="flex flex-col items-center justify-center mt-20 gap-2">
+          <>
             <Spinner />
-            <p className="text-sm text-base-content font-medium">
+            <p className="text-sm text-base-content font-medium text-center mt-4">
               Loading services, please wait...
             </p>
+          </>
+        ) : services.length === 0 ? (
+          <div className="text-center text-lg font-semibold mt-12">
+            No services are available at the moment. Please check back later.
+          </div>
+        ) : filteredServices.length === 0 ? (
+          <div className="text-center text-lg font-semibold mt-12">
+            No services match your search.
           </div>
         ) : (
           <div className="space-y-6">

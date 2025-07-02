@@ -8,7 +8,7 @@ const RootLayout = () => {
     <div className="min-h-screen flex flex-col">
       <ScrollToTop />
 
-      <header className="sticky top-0 z-50">
+      <header className="sticky top-0 z-[9999]">
         <Navbar></Navbar>
       </header>
 

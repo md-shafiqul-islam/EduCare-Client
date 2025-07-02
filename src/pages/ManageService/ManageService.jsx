@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import Spinner from "../../components/Spinner";
 
 const ManageService = () => {
   useEffect(() => {
@@ -13,6 +14,7 @@ const ManageService = () => {
 
   const [myServices, setMyServices] = useState([]);
   const [selectedService, setSelectedService] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!user?.email) return;
@@ -21,8 +23,10 @@ const ManageService = () => {
       .get(`/my-added-services?email=${user?.email}`)
       .then((data) => {
         setMyServices(data?.data || []);
+        setLoading(false);
       })
       .catch((error) => {
+        setLoading(false);
         Swal.fire({
           icon: "error",
           title: "Oops!",
@@ -150,58 +154,71 @@ const ManageService = () => {
           </p>
         </div>
 
-        <div className="overflow-x-auto rounded-xl bg-base-100 shadow border border-secondary">
-          <table className="table w-full">
-            <thead>
-              <tr className="text-base text-accent">
-                <th>Image</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Areas</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {myServices.map((service) => (
-                <tr key={service._id} className="hover:bg-base-200">
-                  <td>
-                    <img
-                      src={service.image}
-                      alt={service.name}
-                      className="w-20 h-16 object-cover rounded"
-                    />
-                  </td>
-                  <td>{service.name}</td>
-                  <td>৳ {service.price}</td>
-                  <td>
-                    {service.areas.map((area, index) => (
-                      <span
-                        key={index}
-                        className="inline-block bg-secondary/10 text-secondary px-2 py-1 rounded mr-1 text-xs"
-                      >
-                        {area}
-                      </span>
-                    ))}
-                  </td>
-                  <td className="space-x-2">
-                    <button
-                      onClick={() => setSelectedService(service)}
-                      className="btn btn-xs btn-primary"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => handleDeleteService(service._id)}
-                      className="btn btn-xs btn-error"
-                    >
-                      Delete
-                    </button>
-                  </td>
+        {loading ? (
+          <>
+            <Spinner />
+            <p className="text-sm text-base-content font-medium text-center mt-4">
+              Loading services, please wait...
+            </p>
+          </>
+        ) : myServices.length === 0 ? (
+          <div className="text-center text-lg font-semibold mt-12">
+            You haven’t added any services yet.
+          </div>
+        ) : (
+          <div className="overflow-x-auto rounded-xl bg-base-100 shadow border border-secondary">
+            <table className="table w-full">
+              <thead>
+                <tr className="text-base text-accent">
+                  <th>Image</th>
+                  <th>Name</th>
+                  <th>Price</th>
+                  <th>Areas</th>
+                  <th>Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {myServices.map((service) => (
+                  <tr key={service._id} className="hover:bg-base-200">
+                    <td>
+                      <img
+                        src={service.image}
+                        alt={service.name}
+                        className="w-20 h-16 object-cover rounded"
+                      />
+                    </td>
+                    <td>{service.name}</td>
+                    <td>৳ {service.price}</td>
+                    <td>
+                      {service.areas.map((area, index) => (
+                        <span
+                          key={index}
+                          className="inline-block bg-secondary/10 text-secondary px-2 py-1 rounded mr-1 text-xs"
+                        >
+                          {area}
+                        </span>
+                      ))}
+                    </td>
+                    <td className="space-x-2">
+                      <button
+                        onClick={() => setSelectedService(service)}
+                        className="btn btn-xs btn-primary"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => handleDeleteService(service._id)}
+                        className="btn btn-xs btn-error"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
 
         {selectedService && (
           <dialog open className="modal modal-bottom sm:modal-middle">

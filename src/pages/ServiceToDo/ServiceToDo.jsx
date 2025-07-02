@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import Spinner from "../../components/Spinner";
 
 const ServiceToDo = () => {
   useEffect(() => {
@@ -11,13 +12,16 @@ const ServiceToDo = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [bookings, setBookings] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axiosSecure(`/bookings/${user?.email}`)
       .then((data) => {
         setBookings(data?.data || []);
+        setLoading(false);
       })
       .catch((error) => {
+        setLoading(false);
         Swal.fire({
           icon: "error",
           title: "Oops!",
@@ -66,17 +70,6 @@ const ServiceToDo = () => {
       });
   };
 
-  if (bookings.length === 0) {
-    return (
-      <div className="text-center text-primary mt-16">
-        <h2 className="text-2xl font-semibold mb-2">Service To Do</h2>
-        <p className="text-center text-lg text-base-content mt-10">
-          No services found where you are listed as the provider.
-        </p>
-      </div>
-    );
-  }
-
   return (
     <div className="bg-base-200">
       <div className="max-w-6xl mx-auto px-4 py-16 space-y-12">
@@ -91,57 +84,72 @@ const ServiceToDo = () => {
           </p>
         </div>
 
-        <div className="overflow-x-auto rounded-xl bg-base-100 shadow border border-secondary">
-          <table className="table w-full">
-            <thead>
-              <tr className="text-base text-accent">
-                <th>Image</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Date</th>
-                <th>Client</th>
-                <th>Instructions</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {bookings.map((booking) => (
-                <tr key={booking._id} className="hover:bg-base-200">
-                  <td>
-                    <img
-                      src={booking.serviceImage}
-                      alt={booking.serviceName}
-                      className="w-20 h-16 object-cover rounded"
-                    />
-                  </td>
-                  <td>{booking.serviceName}</td>
-                  <td>৳ {booking.servicePrice}</td>
-                  <td>{booking.serviceTakingDate}</td>
-                  <td>
-                    <div className="font-medium">{booking.currentUserName}</div>
-                    <div className="text-xs text-base-content/60">
-                      {booking.currentUserEmail}
-                    </div>
-                  </td>
-                  <td>{booking.specialInstructions}</td>
-                  <td>
-                    <select
-                      value={booking.serviceStatus}
-                      onChange={(e) =>
-                        handleStatusChange(booking._id, e.target.value)
-                      }
-                      className="select select-bordered bg-base-100 border-secondary focus:outline-primary"
-                    >
-                      <option value="pending">Pending</option>
-                      <option value="working">Working</option>
-                      <option value="completed">Completed</option>
-                    </select>
-                  </td>
+        {loading ? (
+          <>
+            <Spinner />
+            <p className="text-sm text-base-content font-medium text-center mt-4">
+              Loading services, please wait...
+            </p>
+          </>
+        ) : bookings.length === 0 ? (
+          <div className="text-center text-lg font-semibold mt-12">
+            No services found where you are listed as the provider.
+          </div>
+        ) : (
+          <div className="overflow-x-auto rounded-xl bg-base-100 shadow border border-secondary">
+            <table className="table w-full">
+              <thead>
+                <tr className="text-base text-accent">
+                  <th>Image</th>
+                  <th>Name</th>
+                  <th>Price</th>
+                  <th>Date</th>
+                  <th>Client</th>
+                  <th>Instructions</th>
+                  <th>Status</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {bookings.map((booking) => (
+                  <tr key={booking._id} className="hover:bg-base-200">
+                    <td>
+                      <img
+                        src={booking.serviceImage}
+                        alt={booking.serviceName}
+                        className="w-20 h-16 object-cover rounded"
+                      />
+                    </td>
+                    <td>{booking.serviceName}</td>
+                    <td>৳ {booking.servicePrice}</td>
+                    <td>{booking.serviceTakingDate}</td>
+                    <td>
+                      <div className="font-medium">
+                        {booking.currentUserName}
+                      </div>
+                      <div className="text-xs text-base-content/60">
+                        {booking.currentUserEmail}
+                      </div>
+                    </td>
+                    <td>{booking.specialInstructions}</td>
+                    <td>
+                      <select
+                        value={booking.serviceStatus}
+                        onChange={(e) =>
+                          handleStatusChange(booking._id, e.target.value)
+                        }
+                        className="select select-bordered bg-base-100 border-secondary focus:outline-primary"
+                      >
+                        <option value="pending">Pending</option>
+                        <option value="working">Working</option>
+                        <option value="completed">Completed</option>
+                      </select>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     </div>
   );

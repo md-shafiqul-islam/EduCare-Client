@@ -79,7 +79,7 @@ const Navbar = () => {
   return (
     <>
       {/* Main Navbar */}
-      <nav className="bg-base-300 shadow-md backdrop-blur-sm">
+      <nav className="bg-base-300/80 shadow-lg backdrop-blur-sm">
         <div className="flex items-center justify-between px-4 py-3 max-w-7xl mx-auto">
           {/* Left: Logo + Mobile Toggle */}
           <div className="flex items-center gap-4">
