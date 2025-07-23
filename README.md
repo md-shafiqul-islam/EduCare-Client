@@ -55,7 +55,7 @@ Service Sharing Web Application
 
 ## 🛡️ Security
 
-- JWT token stored in `localStorage` and sent via Axios interceptor.
+- Firebase access token is retrieved on login and injected into Axios headers.
 - All sensitive routes protected with Firebase Admin SDK's `verifyIdToken`.
 - 401 and 403 error handling implemented with auto logout on token expiry.
 
