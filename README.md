@@ -79,7 +79,7 @@ EduCare is a full-stack MERN application that enables users to share, explore, a
 
 | Home | Booking | Dashboard |
 |-------|-----------|--------|
-| ![Home](https://i.ibb.co/vCg7DYYz/image1.png) | ![Booking](https://i.ibb.co/twbvcCTs/image5.png) | ![Services](https://i.ibb.co/twbvcCTs/image5.png) |
+| ![Home](https://i.ibb.co/vCg7DYYz/image1.png) | ![Booking](https://i.ibb.co/twbvcCTs/image5.png) | ![Services](https://i.ibb.co/Kz53HtSd/image6.png) |
 
 ---
 
@@ -116,12 +116,12 @@ ACCESS_TOKEN_SECRET=FB_SERVICE_KEY
 
 # 4. Run both servers
 # In one terminal:
-cd service-sharing
-npm run dev
-
-# In another terminal:
 cd server
 nodemon index.js
+
+# In another terminal:
+cd service-sharing
+npm run dev
 
 ---
 
