@@ -164,7 +164,7 @@ npm run dev
 
 ## 🔗 Related Repository
 
-- Backend: [CraftFlow Server](https://github.com/md-shafiqul-islam/EduCare-Server)
+- Backend: [EduCare Server](https://github.com/md-shafiqul-islam/EduCare-Server)
 
 ---
 
