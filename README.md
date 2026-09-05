@@ -1,131 +1,204 @@
-# EduCare – Service Sharing Platform (Client)
+# EduCare — Educational Service Sharing Platform
 
-EduCare is a full-stack MERN application that enables users to share, explore, and book educational services. This client-side code handles the user interface, authentication, and interaction with the backend API.
+EduCare is a full-stack educational service-sharing platform where users can explore, offer, and book educational services through a responsive, user-friendly web application.
+
+This repository contains the **client-side application**, responsible for the user interface, authentication, service browsing, booking workflows, and interaction with the backend API.
 
 ---
 
-## 🔧 Features
+## 🌐 Live Demo
+
+👉 [View EduCare Live](https://edu-care978.netlify.app/)
+
+---
+
+## 🚀 Project Overview
+
+EduCare connects users with educational service providers through a centralized platform.
+
+Users can:
+
+- Browse and explore available educational services
+- Search services across different categories
+- Book services
+- Track booking status
+- Manage booking history
+
+Service providers can:
+
+- Create and manage service listings
+- Update or delete services
+- Manage booking requests
+- Control service availability
+
+---
+
+## ✨ Key Features
 
 ### 🧑‍🎓 User Features
-- Browse and search educational services across multiple categories  
-- Register and log in with Email/Password or Google OAuth  
-- Book services with real-time status tracking and updates  
-- Manage personal bookings and view booking history  
-- Responsive UI with light/dark mode for seamless user experience  
+
+- Browse educational services
+- Search and explore available services
+- Book educational services
+- Track booking status
+- View and manage booking history
+- Responsive user experience across devices
+
+---
 
 ### 👩‍🏫 Service Provider Features
-- Add, update, and delete service listings with detailed descriptions  
-- View booking requests and manage service availability  
-- Dashboard to track service performance and user feedback  
-- Role-based access control ensures data privacy and security  
 
-### 🔐 Authentication & Security
-- Firebase Authentication with email/password and social logins  
-- Role-based protected routes for Customers and Service Providers  
-- Strong password validation and error handling  
-- Persistent login sessions with secure token management  
-
-### 📊 Usability & UX
-- Fully responsive design across all devices  
-- Smooth animations using Framer Motion for enhanced experience  
-- Toast notifications for user feedback on actions  
-- Dark/light theme toggle with user preference persistence  
-
-### 🧰 Developer Experience
-- Clean codebase organized by feature  
-- React Hook Form for form management and validation  
-- React Router for seamless navigation and protected routes  
-- Environment variables to securely manage Firebase and backend keys  
+- Create service listings
+- Update service information
+- Delete services
+- Manage service availability
+- View booking requests
+- Manage services through dedicated workflows
 
 ---
 
-## 🛠 Tech Stack
+### 🔐 Authentication & Authorization
+
+- Email and password authentication
+- Google authentication
+- Firebase Authentication integration
+- Protected routes
+- Role-based access control
+- Persistent user sessions
+- Secure token management
+
+---
+
+### 🛡️ Protected Routes
+
+The application uses role-based access control to protect specific pages and features.
+
+Access is managed for:
+
+- Users
+- Service Providers
+
+Protected routes help ensure users can only access features and data appropriate to their role.
+
+---
+
+### 🎨 User Experience
+
+- Fully responsive design
+- Light and dark mode support
+- Smooth animations with Framer Motion
+- Toast notifications for user feedback
+- Interactive and user-friendly interface
+
+---
+
+### 🖼️ Media Management
+
+- Image upload support using ImgBB
+- Service image management
+- Image storage and retrieval
+
+---
+
+## 🛠️ Tech Stack
 
 ### Frontend
-- React.js  
-- Tailwind CSS + DaisyUI  
-- React Router  
-- Firebase Authentication  
-- Framer Motion  
 
-### Backend
-- Node.js  
-- Express.js  
-- MongoDB  
-- JWT  
-- Stripe API (salary payments)  
+- React.js
+- React Router
+- Tailwind CSS
+- DaisyUI
+- Firebase Authentication
+- Framer Motion
+- React Hook Form
 
 ### Tools & Services
-- Firebase Auth  
-- Imgbb (image upload)  
-- Vite  
-- Lottie animations  
-- SweetAlert2  
+
+- Firebase
+- ImgBB
+- Vite
+- Lottie
+- SweetAlert2
 
 ---
 
-## 🌐 Live Site  
-🔗 [https://educare-9e09b.web.app](https://educare-9e09b.web.app)
+## 🚀 Getting Started
 
----
+### 1. Clone the Repository
 
-## 📁 Repositories  
-**Client:** [github.com/md-shafiqul-islam/educare-client](https://github.com/md-shafiqul-islam/educare-client)  
-**Server:** [github.com/md-shafiqul-islam/educare-server](https://github.com/md-shafiqul-islam/educare-server)
+```bash
+git clone https://github.com/md-shafiqul-islam/EduCare-Client
+```
 
----
+### 2. Navigate to the Project
+```bash
+cd EduCare-Client
+```
 
-## 📸 Screenshots
+### 3. Install Dependencies
 
-| Home | Booking | Dashboard |
-|-------|-----------|--------|
-| ![Home](https://i.ibb.co/vCg7DYYz/image1.png) | ![Booking](https://i.ibb.co/twbvcCTs/image5.png) | ![Services](https://i.ibb.co/Kz53HtSd/image6.png) |
-
----
-
-## 🧪 Getting Started
-
-To run this project locally:
-
-1. Clone the repositories
-git clone https://github.com/md-shafiqul-islam/educare-client.git
-git clone https://github.com/md-shafiqul-islam/educare-server.git
-
-# 2. Install dependencies for both
-cd educare-client
+```bash
 npm install
+```
 
-cd ../educare-server
-npm install
+### 4. Configure Environment Variables
 
-# 3. Set up environment variables
-# For client: create `.env` file inside `craftflow-client`
-VITE_API_URL=https://server-nine-tau-39.vercel.app
-VITE_FIREBASE:
-API_KEY=VITE_apiKey
-AUTH_ADMIN=VITE_authDomain
-PROJECTID=projectId
-STORAGEBUCKET=VITE_storageBucket
-MESSAGING_SENDER_ID=VITE_messagingSenderId
-APPID=VITE_appId
+```env
+VITE_API_URL=your_backend_api_url
 
-# For server: create `.env` inside `craftflow-server`
-PORT=3000
-DB_URL=MONGODB_URI
-ACCESS_TOKEN_SECRET=FB_SERVICE_KEY
+VITE_API_KEY=your_firebase_api_key
+VITE_AUTH_DOMAIN=your_firebase_auth_domain
+VITE_PROJECT_ID=your_firebase_project_id
+VITE_STORAGE_BUCKET=your_firebase_storage_bucket
+VITE_MESSAGING_SENDER_ID=your_firebase_messaging_sender_id
+VITE_APP_ID=your_firebase_app_id
+```
 
-# 4. Run both servers
-# In one terminal:
-cd server
-nodemon index.js
+### 5. Start the Development Server
 
-# In another terminal:
-cd service-sharing
+```bash
 npm run dev
+```
 
 ---
 
-## 📄 License  
-This project is open-source and available under the [MIT License](LICENSE).
+## 🔗 Related Repository
+
+- Backend: [CraftFlow Server](https://github.com/md-shafiqul-islam/EduCare-Server)
+
+---
+
+## 🔌 Backend Integration
+
+The EduCare client communicates with the backend API for:
+
+- User-related operations
+- Service management
+- Service creation and updates
+- Booking management
+- Booking status updates
+- Authentication-related workflows
+
+---
+
+## 📱 Responsive Design
+
+EduCare is designed to provide a consistent experience across:
+
+- Desktop
+- Tablet
+- Mobile devices
+
+---
+
+### 👨‍💻 Author
+
+Md. Shafiqul Islam
+
+Software Engineer | Full-Stack Developer
+
+- [Porfolio](https://shafiqul-islam.netlify.app/)
+- [LinkedIn](https://www.linkedin.com/in/mdshafiqulislam1/)
+- [GitHub](https://github.com/md-shafiqul-islam)
 
 ---
